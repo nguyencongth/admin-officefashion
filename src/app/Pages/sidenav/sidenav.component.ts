@@ -23,9 +23,9 @@ import {NgClass, NgIf} from "@angular/common";
 export class SidenavComponent {
   @ViewChild('sidenav') sidenav?: MatSidenav;
   isExpanded = true;
-  showSubmenu: boolean = false;
+  showSubmenuStatistical: boolean = false;
   isShowing = false;
-  showSubSubMenu: boolean = false;
+  showSubMenuAccount: boolean = false;
 
   mouseenter() {
     if (!this.isExpanded) {

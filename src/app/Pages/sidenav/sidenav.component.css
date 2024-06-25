@@ -1,6 +1,7 @@
 .example-container {
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  margin-top: 64px;
 }
 .example-sidenav-content {
   display: flex;
@@ -30,4 +31,38 @@
 }
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+button {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.mat-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-toolbar {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
 }
