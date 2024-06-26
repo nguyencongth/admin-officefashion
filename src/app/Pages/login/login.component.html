@@ -1,0 +1,32 @@
+<mat-card class="example-card">
+  <mat-card-title class="title-login">Login</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" class="example-form">
+      <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email">
+          <mat-error *ngIf="form.controls.email.hasError('required')">Email is <strong>required</strong></mat-error>
+          <mat-error *ngIf="form.controls.email.invalid && !form.controls.email.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Enter the password" formControlName="password">
+          <mat-error *ngIf="form.controls.password.hasError('required')">Password is <strong>required</strong></mat-error>
+          <mat-error *ngIf="form.controls.password.hasError('minlength') && !form.controls.email.hasError('required')">
+            Please enter at least 6 characters
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <div class="button">
+        <button mat-raised-button color="primary">Login</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
