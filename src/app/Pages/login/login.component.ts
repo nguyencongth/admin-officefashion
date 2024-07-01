@@ -49,6 +49,8 @@ export class LoginComponent {
             else {
               //this.toastr.error('Đăng nhập thất bại!');
               this.errorMessage = 'Tài khoản hoặc mật khẩu không chính xác.';
+              this.form.controls.email.setErrors({'invalid': true});
+              this.form.controls.password.setErrors({'invalid': true});
             }
           })
       }

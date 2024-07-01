@@ -7,7 +7,10 @@
           <mat-label>Email</mat-label>
           <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email">
           <mat-error *ngIf="form.controls.email.hasError('required')">Email is <strong>required</strong></mat-error>
-          <mat-error *ngIf="form.controls.email.invalid && !form.controls.email.hasError('required')">
+          <mat-error *ngIf="form.controls.email.hasError('invalid') && !form.controls.email.hasError('required')">
+            {{ errorMessage }}
+          </mat-error>
+          <mat-error *ngIf="form.controls.email.invalid && !form.controls.email.hasError('required') && !form.controls.email.hasError('invalid')">
             Please enter a valid email address
           </mat-error>
         </mat-form-field>
@@ -21,8 +24,15 @@
           <mat-error *ngIf="form.controls.password.hasError('minlength') && !form.controls.email.hasError('required')">
             Please enter at least 6 characters
           </mat-error>
+          <mat-error *ngIf="form.controls.password.hasError('invalid')">
+            {{ errorMessage }}
+          </mat-error>
         </mat-form-field>
       </p>
+
+<!--      <mat-error *ngIf="errorMessage">-->
+<!--        {{ errorMessage }}-->
+<!--      </mat-error>-->
 
       <div class="button">
         <button mat-raised-button color="primary">Login</button>
