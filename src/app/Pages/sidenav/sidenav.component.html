@@ -4,7 +4,7 @@
     <h1 class="example-app-name">Administrator</h1>
   </div>
   <div class="toolbar-right">
-    <button mat-icon-button><mat-icon>exit_to_app</mat-icon></button>
+    <button mat-icon-button (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
   </div>
 </mat-toolbar>
 <mat-sidenav-container class="example-container">
@@ -13,14 +13,14 @@
       <mat-list-item>
         <div class="menu-item">
           <mat-icon mat-list-icon>dashboard</mat-icon>
-          <span class="full-width" *ngIf="isExpanded || isShowing">Dashboard</span>
+          <a [routerLink]="['/dashboard']" class="full-width" *ngIf="isExpanded || isShowing">Dashboard</a>
         </div>
       </mat-list-item>
 
       <mat-list-item>
         <div class="menu-item">
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
-          <span class="full-width" *ngIf="isExpanded || isShowing">Sản phẩm</span>
+          <a [routerLink]="['/products']" class="full-width" *ngIf="isExpanded || isShowing">Sản phẩm</a>
         </div>
       </mat-list-item>
 
@@ -38,7 +38,7 @@
         </div>
       </mat-list-item>
 
-      <mat-list-item>
+      <mat-list-item *ngIf="authService.getRole() === 'Administrator'">
         <div class="menu-item">
           <mat-icon mat-list-icon>home</mat-icon>
           <span class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</span>
@@ -75,7 +75,6 @@
           </div>
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubMenuAccount}" *ngIf="isShowing || isExpanded">
-          <a mat-list-item href="...">Hồ sơ</a>
           <a mat-list-item href="...">Đổi mật khẩu</a>
           <a mat-list-item href="...">Đặt lại mật khẩu</a>
         </div>
@@ -85,7 +84,7 @@
   </mat-sidenav>
 
   <div class="example-sidenav-content">
-    Main content that resizes properly
+    <router-outlet></router-outlet>
   </div>
 
 </mat-sidenav-container>

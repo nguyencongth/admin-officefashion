@@ -5,6 +5,8 @@ import {Validators, FormsModule, ReactiveFormsModule, FormBuilder} from '@angula
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgIf} from "@angular/common";
+import {AuthService} from "../../core/service/auth.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,10 +23,35 @@ import {NgIf} from "@angular/common";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private fb: FormBuilder) {
-  }
+  errorMessage: string = '';
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(5)]]
   });
+
+  login() {
+    const { email , password } = this.form.value;
+    if (this.form.valid) {
+      if(email && password) {
+        this.authService.login(email, password)
+          .subscribe((res) => {
+            if (res) {
+              //this.toastr.success('Đăng nhập thành công!');
+              setTimeout(() => {
+                this.router.navigate(['/dashboard']);
+              }, 1000)
+            }
+            else {
+              //this.toastr.error('Đăng nhập thất bại!');
+              this.errorMessage = 'Tài khoản hoặc mật khẩu không chính xác.';
+            }
+          })
+      }
+    }
+  }
 }

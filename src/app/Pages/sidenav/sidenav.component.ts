@@ -4,6 +4,8 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {NgClass, NgIf} from "@angular/common";
+import {RouterLink, RouterOutlet} from "@angular/router";
+import {AuthService} from "../../core/service/auth.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -15,7 +17,9 @@ import {NgClass, NgIf} from "@angular/common";
     MatListItem,
     MatIcon,
     NgClass,
-    NgIf
+    NgIf,
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'
@@ -27,6 +31,13 @@ export class SidenavComponent {
   isShowing = false;
   showSubMenuAccount: boolean = false;
 
+  constructor(protected authService: AuthService) {
+    const loggedIn = localStorage.getItem('loggedIn');
+    if (loggedIn === 'true') {
+      this.authService.setLoggedIn(true);
+    }
+  }
+
   mouseenter() {
     if (!this.isExpanded) {
       this.isShowing = true;
@@ -37,5 +48,9 @@ export class SidenavComponent {
     if (!this.isExpanded) {
       this.isShowing = false;
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
