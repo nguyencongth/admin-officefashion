@@ -19,7 +19,7 @@
 
       <mat-list-item>
         <div class="menu-item">
-          <mat-icon mat-list-icon>shopping_cart</mat-icon>
+          <mat-icon mat-list-icon>store</mat-icon>
           <a [routerLink]="['/products']" class="full-width" *ngIf="isExpanded || isShowing">Sản phẩm</a>
         </div>
       </mat-list-item>
@@ -40,14 +40,14 @@
 
       <mat-list-item *ngIf="authService.getRole() === 'Administrator'">
         <div class="menu-item">
-          <mat-icon mat-list-icon>home</mat-icon>
+          <mat-icon mat-list-icon>person</mat-icon>
           <span class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</span>
         </div>
       </mat-list-item>
 
       <mat-list-item>
         <div class="menu-item">
-          <mat-icon mat-list-icon>home</mat-icon>
+          <mat-icon mat-list-icon>people</mat-icon>
           <span class="full-width" *ngIf="isExpanded || isShowing">Người dùng</span>
         </div>
       </mat-list-item>
