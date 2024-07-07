@@ -1,0 +1,16 @@
+.mat-typography {
+  width: 1000px;
+}
+
+.marginRight {
+    margin-right: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

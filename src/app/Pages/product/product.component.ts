@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ProductService} from "../../core/service/product.service";
 import {CategoryService} from "../../core/service/category.service";
+import {DialogProductComponent} from "../dialog-product/dialog-product.component";
 
 @Component({
   selector: 'app-product',
@@ -86,12 +87,12 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  // openDialog(id: number): void {
-  //   const selectedItem = this.dataSource.data.find(book => book.id === id);
-  //   if (selectedItem) {
-  //     this.dialog.open(DialogBorrowComponent, {
-  //       data: selectedItem
-  //     });
-  //   }
-  // }
+  openDialogProduct(id: number): void {
+    const selectedItem = this.dataSource.data.find(product => product.productId === id);
+    if (selectedItem) {
+      this.dialog.open(DialogProductComponent, {
+        data: selectedItem
+      });
+    }
+  }
 }
