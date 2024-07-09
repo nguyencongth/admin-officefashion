@@ -19,6 +19,12 @@ export class ProductService {
     const url = `${environment.api.urlProduct}/addNewProduct`;
     return this.http.post(url, data);
   }
+
+  updateProduct(data: any):Observable<any> {
+    const url = `${environment.api.urlProduct}/updateInfoProduct`;
+    return this.http.patch(url, data);
+  }
+
   deleteProduct(id: number):Observable<any> {
     const url = `${environment.api.urlProduct}/deleteProduct?productId=${id}`;
     return this.http.delete(url);

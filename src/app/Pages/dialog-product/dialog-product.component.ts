@@ -1,14 +1,13 @@
-import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {Validators, FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {Validators, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOption, MatSelect} from "@angular/material/select";
 import {CategoryService} from "../../core/service/category.service";
 import {NgFor, NgIf} from "@angular/common";
 import {ProductService} from "../../core/service/product.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dialog-product',
@@ -26,7 +25,6 @@ import {Router} from "@angular/router";
   ],
   templateUrl: './dialog-product.component.html',
   styleUrl: './dialog-product.component.css',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogProductComponent implements OnInit {
   categories: any[] = [];
@@ -67,11 +65,21 @@ export class DialogProductComponent implements OnInit {
     })
   }
 
+  updateInfoProduct() {
+    const productId = this.data.productId;
+    const data = {productId, ...this.formProduct.value};
+    this.productService.updateProduct(data).subscribe((data) => {
+      if(data) {
+        this.dialogRef.close(true);
+      }
+    })
+  }
+
   handleClick(isAdd: boolean) {
     if (isAdd) {
       this.addNewProduct();
     } else {
-      //save
+      this.updateInfoProduct();
     }
 
   }
