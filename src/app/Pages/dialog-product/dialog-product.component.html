@@ -1,54 +1,56 @@
 <h2 mat-dialog-title>Chi tiết sản phẩm</h2>
-<form>
+<form [formGroup]="formProduct">
   <mat-dialog-content class="mat-typography">
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Tên sản phẩm </mat-label>
-        <input matInput name="name">
+        <input matInput name="name" formControlName="productName">
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Danh mục </mat-label>
-        <input matInput name="category">
+        <mat-select name="category" formControlName="categoryId">
+          <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Giá nhập </mat-label>
-        <input matInput name="entryPrice">
+        <input matInput name="entryPrice" formControlName="entryPrice">
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Giá bán </mat-label>
-        <input matInput name="price">
+        <input matInput name="price" formControlName="price">
       </mat-form-field>
     </div>
 
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Số lượng trong kho </mat-label>
-        <input matInput name="quantityStock">
+        <input matInput name="quantityStock" formControlName="quantityStock">
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Số lượng đã bán </mat-label>
-        <input matInput name="quantitySold">
+        <input matInput name="quantitySold" formControlName="quantitySold">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="full-width">
         <mat-label> Mô tả </mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="descProduct"></textarea>
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field class="full-width">
         <mat-label> Ảnh sản phẩm </mat-label>
-        <input matInput name="image">
-        <img src="" alt="">
+        <input matInput name="image" formControlName="imageProduct">
+        <img class="image" [src]="data.imageProduct" [alt]="data.productName">
       </mat-form-field>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Update</button>
+    <button type="submit" mat-button [mat-dialog-close]="true">Update</button>
   </mat-dialog-actions>
 </form>

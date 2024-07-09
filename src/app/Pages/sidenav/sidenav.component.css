@@ -6,7 +6,7 @@
 .example-sidenav-content {
   height: 100%;
   display: flex;
-  align-items: center;
+  margin-top: 64px;
   justify-content: center;
 }
 .example-sidenav {

@@ -1,5 +1,5 @@
 .mat-typography {
-  width: 1000px;
+  width: 1200px;
 }
 
 .marginRight {
@@ -13,4 +13,8 @@
 .flex {
     display: flex;
     justify-content: space-between;
+}
+
+.image {
+  max-width: 200px;
 }

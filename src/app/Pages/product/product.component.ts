@@ -87,6 +87,16 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  deleteProduct(id: number) {
+    if(window.confirm('Are you sure you want to delete this product?')) {
+      this.productService.deleteProduct(id).subscribe(res => {
+        if(res) {
+          this.getData();
+        }
+      });
+    } else return;
+  }
+
   openDialogProduct(id: number): void {
     const selectedItem = this.dataSource.data.find(product => product.productId === id);
     if (selectedItem) {
