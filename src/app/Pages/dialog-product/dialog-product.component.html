@@ -5,22 +5,28 @@
       <mat-form-field class="marginRight full-width">
         <mat-label> Tên sản phẩm </mat-label>
         <input matInput name="name" formControlName="productName">
+        <mat-error *ngIf="formProduct.controls.productName.hasError('required')">Vui lòng nhập tên sản phẩm</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Danh mục </mat-label>
         <mat-select name="category" formControlName="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
         </mat-select>
+        <mat-error *ngIf="formProduct.controls.categoryId.hasError('required')">Vui lòng chọn danh mục sản phẩm</mat-error>
       </mat-form-field>
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Giá nhập </mat-label>
         <input matInput name="entryPrice" formControlName="entryPrice">
+        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('required')">Vui lòng nhập giá sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('min')">Giá nhập phải lớn hơn 0</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Giá bán </mat-label>
         <input matInput name="price" formControlName="price">
+        <mat-error *ngIf="formProduct.controls.price.hasError('required')">Vui lòng nhập giá sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.price.hasError('min')">Giá bán phải lớn hơn 0</mat-error>
       </mat-form-field>
     </div>
 
@@ -28,16 +34,21 @@
       <mat-form-field class="marginRight full-width">
         <mat-label> Số lượng trong kho </mat-label>
         <input matInput name="quantityStock" formControlName="quantityStock">
+        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Số lượng đã bán </mat-label>
         <input matInput name="quantitySold" formControlName="quantitySold">
+        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="full-width">
         <mat-label> Mô tả </mat-label>
         <textarea matInput formControlName="descProduct"></textarea>
+        <mat-error *ngIf="formProduct.controls.descProduct.hasError('required')">Vui lòng nhập mô tả sản phẩm</mat-error>
       </mat-form-field>
     </div>
 
@@ -45,7 +56,8 @@
       <mat-form-field class="full-width">
         <mat-label> Ảnh sản phẩm </mat-label>
         <input matInput name="image" formControlName="imageProduct">
-        <img *ngIf="!data.isAdd" class="image" [src]="data.imageProduct" [alt]="data.productName">
+        <mat-error *ngIf="formProduct.controls.imageProduct.hasError('required')">Vui lòng nhập link ảnh sản phẩm</mat-error>
+        <img *ngIf="imageUrl" class="image" [src]="imageUrl" [alt]="data.productName">
       </mat-form-field>
     </div>
   </mat-dialog-content>
