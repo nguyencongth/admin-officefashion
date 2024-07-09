@@ -1,12 +1,14 @@
 import {ChangeDetectionStrategy, Component, Inject, inject, OnInit} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {Validators, FormsModule, ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOption, MatSelect} from "@angular/material/select";
 import {CategoryService} from "../../core/service/category.service";
 import {NgFor, NgIf} from "@angular/common";
+import {ProductService} from "../../core/service/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dialog-product',
@@ -30,15 +32,15 @@ export class DialogProductComponent implements OnInit {
   categories: any[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<DialogProductComponent>,
     private fb: FormBuilder,
     private categoryService: CategoryService,
+    private productService: ProductService,
   ) {}
   ngOnInit(): void {
-    console.log(this.data);
     this.getCategory();
   }
   formProduct = this.fb.group({
-    productId: [this.data.productId, Validators.required],
     categoryId: [this.data.categoryId, Validators.required],
     productName: [this.data.productName, Validators.required],
     entryPrice: [this.data.entryPrice, Validators.required],
@@ -47,12 +49,30 @@ export class DialogProductComponent implements OnInit {
     quantitySold: [this.data.quantitySold, Validators.required],
     imageProduct: [this.data.imageProduct, Validators.required],
     descProduct: [this.data.descProduct, Validators.required],
-    dateAdded: [this.data.dateAdded, Validators.required],
+    dateAdded: [this.data.isAdd ? "2024-07-09T07:35:26.604Z" : this.data.dateAdded, Validators.required],
   });
 
   getCategory() {
     this.categoryService.getCategory().subscribe((data) => {
       this.categories = data.arrayProductType;
     })
+  }
+
+  addNewProduct() {
+    const data = this.formProduct.value;
+    this.productService.addNewProduct(data).subscribe((data) => {
+      if(data) {
+        this.dialogRef.close(true);
+      }
+    })
+  }
+
+  handleClick(isAdd: boolean) {
+    if (isAdd) {
+      this.addNewProduct();
+    } else {
+      //save
+    }
+
   }
 }

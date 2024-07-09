@@ -97,12 +97,35 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
     } else return;
   }
 
-  openDialogProduct(id: number): void {
+  openDialogProduct(id?: number): void {
     const selectedItem = this.dataSource.data.find(product => product.productId === id);
+    let dialogRef;
+
     if (selectedItem) {
-      this.dialog.open(DialogProductComponent, {
-        data: selectedItem
+      dialogRef = this.dialog.open(DialogProductComponent, {
+        data: {...selectedItem, isAdd: false},
+      });
+    } else {
+      dialogRef = this.dialog.open(DialogProductComponent, {
+        data: {
+          productId: null,
+          categoryId: null,
+          productName: null,
+          entryPrice: null,
+          price: null,
+          quantityStock: null,
+          quantitySold: null,
+          imageProduct: null,
+          descProduct: null,
+          dateAdded: null,
+          isAdd: true
+        }
       });
     }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getData();
+      }
+    });
   }
 }
