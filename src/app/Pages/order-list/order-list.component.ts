@@ -16,6 +16,8 @@ import {CategoryService} from "../../core/service/category.service";
 import {DialogProductComponent} from "../dialog-product/dialog-product.component";
 import {OrderService} from "../../core/service/order.service";
 import {UserService} from "../../core/service/user.service";
+import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
+import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 
 @Component({
   selector: 'app-order-list',
@@ -29,7 +31,9 @@ import {UserService} from "../../core/service/user.service";
       MatFormFieldModule,
       MatSelectModule,
       MatIconModule,
-      MatDividerModule
+      MatDividerModule,
+      CurrencyFormatPipe,
+      DatetimeFormatPipe
     ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'

@@ -25,13 +25,13 @@
     <!-- Quantity Column -->
     <ng-container matColumnDef="entryPrice">
       <th mat-header-cell *matHeaderCellDef> Entry Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.entryPrice}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.entryPrice | currencyFormat}} </td>
     </ng-container>
 
     <!-- Quantity Borrowed Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.price | currencyFormat}} </td>
     </ng-container>
 
     <ng-container matColumnDef="quantityStock">
@@ -46,7 +46,7 @@
 
     <ng-container matColumnDef="dateAdded">
       <th mat-header-cell *matHeaderCellDef> dateAdded </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateAdded}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.dateAdded | datetimeFormat}} </td>
     </ng-container>
 
     <!-- Actions Column -->

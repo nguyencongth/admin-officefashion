@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import {ProductService} from "../../core/service/product.service";
 import {CategoryService} from "../../core/service/category.service";
 import {DialogProductComponent} from "../dialog-product/dialog-product.component";
+import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
+import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 
 @Component({
   selector: 'app-product',
@@ -29,7 +31,9 @@ import {DialogProductComponent} from "../dialog-product/dialog-product.component
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    CurrencyFormatPipe,
+    DatetimeFormatPipe
   ],
 })
 export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
