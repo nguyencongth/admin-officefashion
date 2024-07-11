@@ -34,7 +34,7 @@
       <mat-list-item>
         <div class="menu-item">
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
-          <span class="full-width" *ngIf="isExpanded || isShowing">Đơn hàng</span>
+          <a [routerLink]="['/orders']" class="full-width" *ngIf="isExpanded || isShowing">Đơn hàng</a>
         </div>
       </mat-list-item>
 
