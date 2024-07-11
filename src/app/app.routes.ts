@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     component: SidenavComponent,
-    //canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./core/router/sidenav-route.routes').then(m => m.SIDENAV_ROUTER),
   }
 ];

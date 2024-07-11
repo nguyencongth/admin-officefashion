@@ -31,12 +31,7 @@ export class SidenavComponent {
   isShowing = false;
   showSubMenuAccount: boolean = false;
 
-  constructor(protected authService: AuthService) {
-    const loggedIn = localStorage.getItem('loggedIn');
-    if (loggedIn === 'true') {
-      this.authService.setLoggedIn(true);
-    }
-  }
+  constructor(protected authService: AuthService) {}
 
   mouseenter() {
     if (!this.isExpanded) {

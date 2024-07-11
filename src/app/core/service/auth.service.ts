@@ -12,7 +12,9 @@ export class AuthService {
   private role: string | null = null;
   private email: string | null = null;
   private apiUrl = environment.api.urlLogin;
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.loggedIn == !!localStorage.getItem('loggedIn');
+  }
 
   login(email: string, password: string): Observable<any> {
     const loginData = {
@@ -39,12 +41,6 @@ export class AuthService {
       this.role = localStorage.getItem('role');
     }
     return this.role;
-  }
-  setLoggedIn(value: boolean) {
-    this.loggedIn = value;
-  }
-  isLoggedIn() {
-    return this.loggedIn;
   }
   getInfo() {
     this.email = localStorage.getItem('email');
