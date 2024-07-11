@@ -18,6 +18,7 @@ import {OrderService} from "../../core/service/order.service";
 import {UserService} from "../../core/service/user.service";
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
+import {AuthService} from "../../core/service/auth.service";
 
 @Component({
   selector: 'app-order-list',
@@ -53,7 +54,8 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
     private orderService: OrderService,
     private userService: UserService,
     private route: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    protected authService: AuthService
   ) { }
   ngOnInit(): void {
     this.getDataOrder()
