@@ -41,7 +41,7 @@
       <mat-list-item *ngIf="authService.getRole() === 'Administrator'">
         <div class="menu-item">
           <mat-icon mat-list-icon>person</mat-icon>
-          <span class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</span>
+          <a [routerLink]="['/staff-list']" class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</a>
         </div>
       </mat-list-item>
 
