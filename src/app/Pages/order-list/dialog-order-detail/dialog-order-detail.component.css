@@ -1,0 +1,48 @@
+h2.mat-dialog-title {
+  color: #3f51b5;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mat-dialog-content {
+  font-size: 16px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+strong {
+  font-weight: bold;
+}
+
+tbody tr {
+  text-align: center;
+}

@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ProductService} from "../../core/service/product.service";
 import {CategoryService} from "../../core/service/category.service";
-import {DialogProductComponent} from "../dialog-product/dialog-product.component";
 import {OrderService} from "../../core/service/order.service";
 import {UserService} from "../../core/service/user.service";
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 import {AuthService} from "../../core/service/auth.service";
+import {DialogOrderDetailComponent} from "./dialog-order-detail/dialog-order-detail.component";
 
 @Component({
   selector: 'app-order-list',
@@ -84,47 +84,31 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
     )
       .subscribe((data) => {
         const newData = data.orders.arrayOrders.map((order: any) => {
-          const found = data.users.arrayCustomer.find((user: any) => user.customerId === order.customerId)
+          const foundUser = data.users.arrayCustomer.find((user: any) => user.customerId === order.customerId)
           return {
             ...order,
-            fullName: found ? found.fullName : null
+            ...(foundUser ? foundUser : {})
           }
         })
         this.dataSource.data = [...newData];
       });
   }
 
-  // openDialogProduct(id?: number): void {
-  //   const selectedItem = this.dataSource.data.find(product => product.productId === id);
-  //   let dialogRef;
-  //
-  //   if (selectedItem) {
-  //     dialogRef = this.dialog.open(DialogProductComponent, {
-  //       data: {...selectedItem, isAdd: false},
-  //     });
-  //   } else {
-  //     dialogRef = this.dialog.open(DialogProductComponent, {
-  //       data: {
-  //         productId: null,
-  //         categoryId: null,
-  //         productName: null,
-  //         entryPrice: null,
-  //         price: null,
-  //         quantityStock: null,
-  //         quantitySold: null,
-  //         imageProduct: null,
-  //         descProduct: null,
-  //         dateAdded: null,
-  //         isAdd: true
-  //       }
-  //     });
-  //   }
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.getData();
-  //     }
-  //   });
-  // }
+  openDialogOrderDetail(id: number): void {
+    const selectedItem = this.dataSource.data.find(order => order.orderId === id);
+    let dialogRef;
+
+    if (selectedItem) {
+      dialogRef = this.dialog.open(DialogOrderDetailComponent, {
+        data: selectedItem
+      });
+    }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getDataOrder();
+      }
+    });
+  }
   confirmOrder(orderId: number, status: number) {
     this.orderService.confirmOrder(orderId, status).subscribe((res) => {
       if(res) {
