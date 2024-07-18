@@ -1,37 +1,43 @@
-<h2 mat-dialog-title>Chi tiết đơn hàng</h2>
-<mat-dialog-content>
-<div class="row">
-    <div class="col-md-6">
-      <p><strong>Mã đơn hàng:</strong> #{{data.orderId}}</p>
-      <p><strong>Ngày đặt hàng:</strong> {{data.orderDate | datetimeFormat}}</p>
-      <p><strong>Người nhận:</strong> {{data.fullName}}</p>
-      <p><strong>Địa chỉ:</strong> {{data.address}}</p>
-      <p><strong>Số điện thoại:</strong> {{data.phonenumber}}</p>
-      <p><strong>Email:</strong> {{data.email}}</p>
+<div id="invoice">
+  <h2 mat-dialog-title>Chi tiết đơn hàng</h2>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Mã đơn hàng:</strong> #{{data.orderId}}</p>
+        <p><strong>Ngày đặt hàng:</strong> {{data.orderDate | datetimeFormat}}</p>
+        <p><strong>Người nhận:</strong> {{data.fullName}}</p>
+        <p><strong>Địa chỉ:</strong> {{data.address}}</p>
+        <p><strong>Số điện thoại:</strong> {{data.phonenumber}}</p>
+        <p><strong>Email:</strong> {{data.email}}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Tổng tiền:</strong> {{data.totalAmount | currencyFormat}}</p>
+        <p><strong>Phương thức thanh toán:</strong> {{data.paymentMethod}}</p>
+      </div>
     </div>
-    <div class="col-md-6">
-      <p><strong>Tổng tiền:</strong> {{data.totalAmount | currencyFormat}}</p>
-      <p><strong>Phương thức thanh toán:</strong> {{data.paymentMethod}}</p>
-    </div>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
         <tr>
           <th>STT</th>
           <th>Tên sản phẩm</th>
           <th>Số lượng</th>
           <th>Thành tiền</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let item of data.orderItems; let i = index">
           <td>{{i + 1}}</td>
           <td>{{item.productName}}</td>
           <td>{{item.quantity}}</td>
           <td>{{item.subtotal | currencyFormat}}</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-</mat-dialog-content>
+        </tbody>
+      </table>
+    </div>
+  </mat-dialog-content>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button (click)="generatePDF(data.orderId)" mat-button>Export to PDF</button>
+</mat-dialog-actions>

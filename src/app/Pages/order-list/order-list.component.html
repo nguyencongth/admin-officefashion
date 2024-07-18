@@ -37,8 +37,25 @@
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
         <button style="margin-right: 4px;" mat-raised-button (click)="openDialogOrderDetail(element.orderId)">Detail</button>
-        <button *ngIf="authService.getRole()==='Administrator' || authService.getRole()==='Sales'" style="margin-right: 4px;" mat-raised-button color="accent" (click)="confirmOrder(element.orderId, 1)">Confirm</button>
-        <button *ngIf="authService.getRole()==='Administrator' || authService.getRole()==='Sales'" style="margin-right: 4px;" mat-raised-button color="warn">Cancel</button>
+        <button
+          *ngIf="authService.getRole()==='Administrator' || authService.getRole()==='Sales'"
+          style="margin-right: 4px;"
+          mat-raised-button
+          color="accent"
+          (click)="confirmOrder(element.orderId, 1)"
+          [disabled]="element.orderStatus === 2"
+        >
+          Confirm
+        </button>
+        <button
+          *ngIf="authService.getRole()==='Administrator' || authService.getRole()==='Sales'"
+          style="margin-right: 4px;"
+          mat-raised-button
+          color="warn"
+          [disabled]="element.orderStatus === 2"
+        >
+          Cancel
+        </button>
       </td>
     </ng-container>
 
