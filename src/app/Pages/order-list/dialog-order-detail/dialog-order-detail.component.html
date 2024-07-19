@@ -11,8 +11,8 @@
         <p><strong>Email:</strong> {{data.email}}</p>
       </div>
       <div class="col-md-6">
-        <p><strong>Tổng tiền:</strong> {{data.totalAmount | currencyFormat}}</p>
         <p><strong>Phương thức thanh toán:</strong> {{data.paymentMethod}}</p>
+        <p><strong>Tổng tiền:</strong> {{data.totalAmount | currencyFormat}}</p>
       </div>
     </div>
     <div class="table-responsive">
@@ -22,6 +22,7 @@
           <th>STT</th>
           <th>Tên sản phẩm</th>
           <th>Số lượng</th>
+          <th>Đơn giá</th>
           <th>Thành tiền</th>
         </tr>
         </thead>
@@ -30,6 +31,7 @@
           <td>{{i + 1}}</td>
           <td>{{item.productName}}</td>
           <td>{{item.quantity}}</td>
+          <td>{{item.price | currencyFormat}}</td>
           <td>{{item.subtotal | currencyFormat}}</td>
         </tr>
         </tbody>
