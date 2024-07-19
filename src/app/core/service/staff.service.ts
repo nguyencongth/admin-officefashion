@@ -14,4 +14,19 @@ export class StaffService {
     const url = `${this.apiUrl}/getStaffAll`;
     return this.Http.get(url);
   }
+
+  addStaff(data: any):Observable<any> {
+    const url = `${this.apiUrl}/register`;
+    return this.Http.post(url, data);
+  }
+
+  updateStaffInfo(data: any):Observable<any> {
+    const url = `${this.apiUrl}/updateInfoStaff`;
+    return this.Http.patch(url, data);
+  }
+
+  deleteStaff(id:number):Observable<any> {
+    const url = `${this.apiUrl}/deleteStaff?managerId=${id}`;
+    return this.Http.delete(url);
+  }
 }
