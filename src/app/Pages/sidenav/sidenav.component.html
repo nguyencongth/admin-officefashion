@@ -10,17 +10,17 @@
 <mat-sidenav-container class="example-container" autosize>
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
     <mat-nav-list>
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/dashboard']">
         <div class="menu-item">
           <mat-icon mat-list-icon>dashboard</mat-icon>
-          <a [routerLink]="['/dashboard']" class="full-width" *ngIf="isExpanded || isShowing">Dashboard</a>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Dashboard</span>
         </div>
       </mat-list-item>
 
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/products']">
         <div class="menu-item">
           <mat-icon mat-list-icon>store</mat-icon>
-          <a [routerLink]="['/products']" class="full-width" *ngIf="isExpanded || isShowing">Sản phẩm</a>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Sản phẩm</span>
         </div>
       </mat-list-item>
 
@@ -31,21 +31,21 @@
         </div>
       </mat-list-item>
 
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/orders']">
         <div class="menu-item">
           <mat-icon mat-list-icon>shopping_cart</mat-icon>
-          <a [routerLink]="['/orders']" class="full-width" *ngIf="isExpanded || isShowing">Đơn hàng</a>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Đơn hàng</span>
         </div>
       </mat-list-item>
 
-      <mat-list-item *ngIf="authService.getRole() === 'Administrator'">
+      <mat-list-item [routerLink]="['/staff-list']" *ngIf="authService.getRole() === 'Administrator'">
         <div class="menu-item">
           <mat-icon mat-list-icon>person</mat-icon>
-          <a [routerLink]="['/staff-list']" class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</a>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Quản lý nhân viên</span>
         </div>
       </mat-list-item>
 
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/user-list']">
         <div class="menu-item">
           <mat-icon mat-list-icon>people</mat-icon>
           <span class="full-width" *ngIf="isExpanded || isShowing">Người dùng</span>
