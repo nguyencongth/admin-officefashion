@@ -90,7 +90,7 @@ export class StaffListComponent implements OnInit, AfterViewInit, OnDestroy {
     } else return;
   }
 
-  openDialogProduct(id?: number): void {
+  openDialog(id?: number): void {
     const selectedItem = this.dataSource.data.find(staff => staff.managerId === id);
     let dialogRef;
 

@@ -11,29 +11,12 @@
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element">#{{element.managerId}} </td>
+      <td mat-cell *matCellDef="let element">#{{element.categoryId}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell *matHeaderCellDef> Full name</th>
-      <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element">
-        <span>{{element.email}}</span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="phoneNumber">
-      <th mat-header-cell *matHeaderCellDef> Phone number </th>
-      <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef> Role </th>
-      <td mat-cell *matCellDef="let element"> {{element.roleName}} </td>
+    <ng-container matColumnDef="categoryName">
+      <th mat-header-cell *matHeaderCellDef> Category Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
@@ -41,13 +24,13 @@
       <td mat-cell *matCellDef="let element">
         <button
           style="margin-right: 4px;" mat-raised-button color="primary"
-          (click)="openDialog(element.managerId)"
+          (click)="openDialog(element.categoryId)"
         >
           Detail
         </button>
         <button
           style="margin-right: 4px;" mat-raised-button color="warn"
-          (click)="deleteStaff(element.managerId)"
+          (click)="deleteCategory(element.categoryId)"
         >
           Delete
         </button>

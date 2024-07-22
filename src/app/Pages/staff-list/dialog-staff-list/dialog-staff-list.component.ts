@@ -38,7 +38,6 @@ export class DialogStaffListComponent implements  OnInit {
 
   ngOnInit() {
     this.getRoles();
-    console.log(this.data)
   }
   formStaff = this.fb.group({
     fullName: [this.data.fullName, Validators.required],

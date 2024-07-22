@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{data.isAdd ? 'Thêm danh mục' : 'Thông tin danh mục'}}</h2>
+<form [formGroup]="formCategory">
+  <mat-dialog-content class="mat-typography">
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label> Tên danh mục </mat-label>
+        <input matInput name="name" formControlName="categoryName">
+        <mat-error *ngIf="formCategory.controls.categoryName.hasError('required')">Vui lòng nhập tên danh mục</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button (click)="handleClick(data.isAdd)" type="submit" mat-button>{{data.isAdd ? 'Add' : 'Save'}}</button>
+  </mat-dialog-actions>
+</form>
+
+

@@ -19,4 +19,18 @@ export class CategoryService {
     const url = `${this.urlApi}/getCategoryById?categoryId=${categoryId}`;
     return this.http.get(url);
   }
+
+  createCategory(category: any):Observable<any> {
+    const url = `${this.urlApi}/addCategory`;
+    return this.http.post(url, category);
+  }
+
+  updateCategory(data: any):Observable<any> {
+    const url = `${this.urlApi}/updateCategory`;
+    return this.http.patch(url, data);
+  }
+  deleteCategory(categoryId: number):Observable<any> {
+    const url = `${this.urlApi}/deleteCategory?categoryId=${categoryId}`;
+    return this.http.delete(url);
+  }
 }
