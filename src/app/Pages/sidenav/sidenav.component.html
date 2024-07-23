@@ -61,8 +61,8 @@
           </div>
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubmenuStatistical}" *ngIf="isShowing || isExpanded">
-          <a mat-list-item href="...">Doanh thu</a>
-          <a mat-list-item href="...">Top sản phẩm</a>
+          <a mat-list-item>Doanh thu</a>
+          <a mat-list-item [routerLink]="['/top5-products-best-selling']">Top sản phẩm</a>
         </div>
       </mat-nav-list>
 

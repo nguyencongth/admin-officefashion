@@ -29,4 +29,9 @@ export class ProductService {
     const url = `${environment.api.urlProduct}/deleteProduct?productId=${id}`;
     return this.http.delete(url);
   }
+
+  top5ProductBestSelling():Observable<any> {
+    const url = `${environment.api.urlProduct}/top5ProductsBestSelling`;
+    return this.http.get(url);
+  }
 }
