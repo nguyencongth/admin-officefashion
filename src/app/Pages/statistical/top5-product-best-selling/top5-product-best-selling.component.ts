@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
-import {ChartOptions} from "chart.js";
+import {ChartConfiguration, ChartOptions} from "chart.js";
 import {ProductService} from "../../../core/service/product.service";
 
 @Component({
@@ -14,6 +14,7 @@ import {ProductService} from "../../../core/service/product.service";
 })
 export class Top5ProductBestSellingComponent implements OnInit {
   topProductsBestSelling: any[] = [];
+  totalNumberOfProductSold: any[] = [];
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
   };
@@ -24,15 +25,31 @@ export class Top5ProductBestSellingComponent implements OnInit {
   public pieChartLegend = true;
   public pieChartPlugins:any[] = [];
 
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label: 'Tổng số lượng bán được trong tháng',
+        fill: true,
+        tension: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'rgba(255,0,0,0.3)'
+      }
+    ]
+  };
+  public lineChartOptions: ChartOptions<'line'> = {
+  responsive: false
+  };
+  public lineChartLegend = true;
+
   constructor(
     private productService: ProductService
   ) {}
 
   ngOnInit(): void {
     this.getTop5ProductBestSelling();
-    console.log(this.topProductsBestSelling);
-    console.log(this.pieChartLabels);
-    console.log(this.pieChartDatasets);
+    this.getTotalNumberOfProductSoldInMonth();
   }
 
   getTop5ProductBestSelling() {
@@ -44,6 +61,13 @@ export class Top5ProductBestSellingComponent implements OnInit {
           data: this.topProductsBestSelling.map(product => product.quantitySold),
         }
       ];
+    });
+  }
+  getTotalNumberOfProductSoldInMonth() {
+    this.productService.totalNumberOfProductSoldInMonth().subscribe((res: any) => {
+      this.totalNumberOfProductSold = res.arraySalesData;
+      this.lineChartData.labels = this.totalNumberOfProductSold.map((data:any) => `Tháng ${data.month}`);
+      this.lineChartData.datasets[0].data = this.totalNumberOfProductSold.map((data:any) => data.totalQuantitySold);
     });
   }
 }

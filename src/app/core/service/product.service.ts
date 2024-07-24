@@ -34,4 +34,8 @@ export class ProductService {
     const url = `${environment.api.urlProduct}/top5ProductsBestSelling`;
     return this.http.get(url);
   }
+  totalNumberOfProductSoldInMonth():Observable<any> {
+    const url = `${environment.api.urlProduct}/totalNumberOfProductSold`;
+    return this.http.get(url);
+  }
 }

@@ -1,8 +1,26 @@
-<canvas baseChart
-        [type]="'pie'"
-        [datasets]="pieChartDatasets"
-        [labels]="pieChartLabels"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend">
-</canvas>
+<div class="wrapper-chart">
+  <div>
+    <h4>Top 5 sản phẩm bán chạy nhất</h4>
+    <canvas baseChart
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend">
+    </canvas>
+  </div>
+
+  <div>
+    <h4>Tổng số sản phẩm bán được trong từng tháng</h4>
+    <canvas baseChart
+            [type]="'line'"
+            [datasets]="lineChartData.datasets"
+            [labels]="lineChartData.labels"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend">
+    </canvas>
+  </div>
+
+
+</div>
