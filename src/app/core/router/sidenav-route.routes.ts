@@ -8,6 +8,7 @@ import {CategoryListComponent} from "../../Pages/category-list/category-list.com
 import {
   Top5ProductBestSellingComponent
 } from "../../Pages/statistical/top5-product-best-selling/top5-product-best-selling.component";
+import {RevenueStatisticsComponent} from "../../Pages/statistical/revenue-statistics/revenue-statistics.component";
 
 
 export const SIDENAV_ROUTER: Routes = [
@@ -18,4 +19,5 @@ export const SIDENAV_ROUTER: Routes = [
   { path: 'user-list', component: UserListComponent, title: 'User list' },
   { path: 'category-list', component: CategoryListComponent, title: 'Category list' },
   { path: 'top5-products-best-selling', component: Top5ProductBestSellingComponent, title: 'Top 5 products best selling' },
+  { path: 'revenue-statistics', component: RevenueStatisticsComponent, title: 'Revenue statistics' },
 ]
