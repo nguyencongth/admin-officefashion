@@ -1,7 +1,7 @@
 .row-1 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .card {
@@ -77,13 +77,99 @@
 .row-2 {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 16px;
+  justify-content: space-between;
+  /*background-color: #fff;*/
+  /*border-radius: 16px;*/
+  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+  /*margin: 16px;*/
 }
 
-.row-2 .chart {
+.row-2 .chart, .row-2 .top-product {
   padding: 20px;
 }
+
+.top-product, .chart {
+  margin: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+.top-product {
+  width: 45%;
+}
+.chart {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+.sale {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid;
+  height: 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.sale span {
+  padding: 0 8px;
+}
+
+progress {
+  height: 6px;
+  border-radius: 25px;
+  background-color: #e0e0e0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 25px;
+}
+
+progress::-webkit-progress-value {
+  border-radius: 25px;
+}
+
+progress::-moz-progress-bar {
+  border-radius: 25px;
+}
+
+.lowest-profit::-webkit-progress-value {
+  background-color: rgb(136, 77, 255);
+}
+
+.low-profit::-webkit-progress-value {
+  background-color: rgb(255, 143, 13);
+}
+
+.medium-profit::-webkit-progress-value {
+  background-color: rgb(0, 149, 255);
+}
+
+.high-profit::-webkit-progress-value {
+  background-color: rgb(0, 224, 150);
+}
+
+.lowest-profit::-moz-progress-bar {
+  background-color: rgb(136, 77, 255);
+}
+
+.low-profit::-moz-progress-bar {
+  background-color: rgb(255, 143, 13);
+}
+
+.medium-profit::-moz-progress-bar {
+  background-color: rgb(0, 149, 255);
+}
+
+.high-profit::-moz-progress-bar {
+  background-color: rgb(0, 224, 150);
+}
+

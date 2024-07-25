@@ -46,8 +46,63 @@
 </div>
 
 <div class="row-2">
+  <div class="top-product">
+    <h2>Top products</h2>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell cdkDrag *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell cdkDrag *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Popularity">
+        <th mat-header-cell cdkDrag *matHeaderCellDef> Popularity </th>
+        <td mat-cell *matCellDef="let element">
+          <progress
+          id="progress-bar"
+          value="{{element.profitPercentage}}"
+          max="100"
+          [ngClass]="{
+                'lowest-profit': element.profitPercentage < 20,
+                'low-profit': element.profitPercentage >= 20 && element.profitPercentage < 50,
+                'medium-profit': element.profitPercentage >= 50 && element.profitPercentage < 100,
+                'high-profit': element.profitPercentage >= 100
+            }"
+        >
+        </progress>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Sales">
+        <th mat-header-cell cdkDrag *matHeaderCellDef> Sales </th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            class="sale"
+            [ngStyle]="{'border-color': getProfitColor(element.profitPercentage), 'color': getProfitColor(element.profitPercentage)}"
+          >
+            <span>
+              {{element.profitPercentage}} %
+            </span>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+  </div>
   <div class="chart">
     <app-top5-product-best-selling></app-top5-product-best-selling>
   </div>
 </div>
+<!--<div class="row-2">-->
+<!--  <div class="chart">-->
+<!--    <app-top5-product-best-selling></app-top5-product-best-selling>-->
+<!--  </div>-->
+<!--</div>-->
 
