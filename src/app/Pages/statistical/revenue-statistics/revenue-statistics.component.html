@@ -1,9 +1,14 @@
 <mat-form-field class="custom-date-picker">
-  <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-label>Choose a month and year</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="monthYearControl">
+  <mat-hint>MM/YYYY</mat-hint>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+  <mat-datepicker
+    #picker startView="multi-year"
+    (monthSelected)="chosenMonthHandler($event, picker)"
+    (yearSelected)="chosenYearHandler($event)"
+  >
+  </mat-datepicker>
 </mat-form-field>
 <div class="chart-container">
   <canvas baseChart

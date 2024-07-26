@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import {ChartConfiguration, ChartOptions} from "chart.js";
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import {ProductService} from "../../../core/service/product.service";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-revenue-statistics',
@@ -14,27 +16,69 @@ import {provideNativeDateAdapter} from '@angular/material/core';
     BaseChartDirective,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ReactiveFormsModule
   ],
   templateUrl: './revenue-statistics.component.html',
   styleUrl: './revenue-statistics.component.css'
 })
-export class RevenueStatisticsComponent {
+export class RevenueStatisticsComponent implements OnInit {
   public barChartLegend = true;
   public barChartPlugins: any[] = [];
 
   public barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
+    labels: [],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: '2024' },
-      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: '2023' }
+      { data: [], label: '2024' },
+      { data: [], label: '2023' }
     ]
   };
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: false,
   };
+  monthYearControl = new FormControl(new Date());
 
-  constructor() {
+  constructor(
+    private productService: ProductService
+  ) {}
+  ngOnInit(): void {
+    this.getTotalRevenueInMonth(this.monthYearControl.value.getFullYear());
+    this.monthYearControl.valueChanges.subscribe((value) => {
+      if (value) {
+        this.getTotalRevenueInMonth(value.getFullYear());
+      }
+    });
+  }
+  chosenYearHandler(normalizedYear: Date) {
+    const ctrlValue = this.monthYearControl.value;
+    ctrlValue.setFullYear(normalizedYear.getFullYear());
+    this.monthYearControl.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler(normalizedMonth: Date, datepicker: MatDatepicker<any>) {
+    const ctrlValue = this.monthYearControl.value;
+    ctrlValue.setMonth(normalizedMonth.getMonth());
+    this.monthYearControl.setValue(ctrlValue);
+    datepicker.close();
+  }
+
+  getTotalRevenueInMonth(year: number) {
+    this.productService.totalRevenueInMonth(year).subscribe((res: any) => {
+      const currentYearData = res.arrayRevenue.map((data: any) => data.totalRevenue);
+      const labels = res.arrayRevenue.map((data: any) => `Tháng ${data.month}`);
+
+      this.productService.totalRevenueInMonth(year - 1).subscribe((resPrev: any) => {
+        const previousYearData = resPrev.arrayRevenue.map((data: any) => data.totalRevenue);
+
+        this.barChartData = {
+          labels: labels,
+          datasets: [
+            { data: currentYearData, label: `${year}` },
+            { data: previousYearData, label: `${year - 1}` }
+          ]
+        };
+      });
+    });
   }
 }

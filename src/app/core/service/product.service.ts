@@ -38,4 +38,8 @@ export class ProductService {
     const url = `${environment.api.urlProduct}/totalNumberOfProductSold`;
     return this.http.get(url);
   }
+  totalRevenueInMonth(year: number):Observable<any> {
+    const url = `${environment.api.urlProduct}/totalRevenueInMonth?year=${year}`;
+    return this.http.get(url);
+  }
 }
