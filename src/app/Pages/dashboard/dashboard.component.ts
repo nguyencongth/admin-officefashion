@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {
@@ -7,6 +7,10 @@ import {
 import {MatIcon} from "@angular/material/icon";
 import {ProductService} from "../../core/service/product.service";
 import {NgClass, NgStyle} from "@angular/common";
+import {OrderService} from "../../core/service/order.service";
+import {UserService} from "../../core/service/user.service";
+import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,32 +21,50 @@ import {NgClass, NgStyle} from "@angular/common";
     Top5ProductBestSellingComponent,
     MatIcon,
     NgStyle,
-    NgClass
+    NgClass,
+    CurrencyFormatPipe
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   columns: string[] = ['id', 'name', 'Popularity', 'Sales'];
   data: any[] = [];
   dataSource = new MatTableDataSource(this.data);
-  profitPercentage: number = 0;
-  constructor(private productService: ProductService) {}
+  private unsubscribe$ = new Subscription();
+  totalProduct: number = 0;
+  totalOrder: number = 0;
+  totalUser: number = 0;
+  totalRevenue: number = 0;
+  constructor(
+    private productService: ProductService,
+    private orderService: OrderService,
+    private userService: UserService
+  ) {}
   ngOnInit() {
     this.getTop5ProductBestSelling();
+    this.getTotalProduct();
+    this.getTotalOrder();
+    this.getTotalUser();
+    this.getTotalRevenue();
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.unsubscribe();
   }
   getTop5ProductBestSelling() {
-    this.productService.top5ProductBestSelling().subscribe((res: any) => {
-      this.dataSource.data = res.arrayProduct.map((product:any) => {
-        let enterPrice = product.entryPrice;
-        let price = product.price;
-        let percentage = (price - enterPrice) / enterPrice * 100;
-        console.log(enterPrice, price, percentage)
-        product.profitPercentage = Math.round(percentage)
-        return product;
+    this.unsubscribe$.add(
+      this.productService.top5ProductBestSelling().subscribe((res: any) => {
+        this.dataSource.data = res.arrayProduct.map((product:any) => {
+          let enterPrice = product.entryPrice;
+          let price = product.price;
+          let percentage = (price - enterPrice) / enterPrice * 100;
+          product.profitPercentage = Math.round(percentage)
+          return product;
+        })
       })
-    });
+    )
   }
+
   getProfitColor(profitPercentage: number): string {
     if (profitPercentage < 20) {
       return 'rgb(136, 77, 255)';
@@ -53,5 +75,38 @@ export class DashboardComponent implements OnInit {
     } else {
       return 'rgb(0, 224, 150)';
     }
+  }
+
+  getTotalProduct() {
+    this.unsubscribe$.add(
+      this.productService.getProduct().subscribe((res: any) => {
+        this.totalProduct = res.arrayProduct.length;
+      })
+    )
+  }
+  getTotalOrder() {
+    this.unsubscribe$.add(
+      this.orderService.getOrderList().subscribe((res: any) => {
+        this.totalOrder = res.arrayOrders.length;
+      })
+    )
+  }
+
+  getTotalUser() {
+    this.unsubscribe$.add(
+      this.userService.getUserList().subscribe((res: any) => {
+        this.totalUser = res.arrayCustomer.length;
+      })
+    )
+  }
+
+  getTotalRevenue() {
+    this.unsubscribe$.add(
+      this.productService.totalRevenueInMonth(new Date().getFullYear()).subscribe((res: any) =>{
+        this.totalRevenue = res.arrayRevenue.reduce((acc:number, data: any) => {
+          return acc + data.totalRevenue;
+        }, 0);
+      })
+    )
   }
 }
