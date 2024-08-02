@@ -29,7 +29,7 @@
 /* Custom styles for the chart container */
 .chart-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
   background: #fff;
@@ -38,6 +38,6 @@
 }
 
 .chart-container canvas {
-  height: 300px !important;
-  width: 600px !important;
+  height: 400px !important;
+  width: 800px !important;
 }

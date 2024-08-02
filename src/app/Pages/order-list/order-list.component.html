@@ -53,6 +53,7 @@
           mat-raised-button
           color="warn"
           [disabled]="element.orderStatus === 2"
+          (click)="cancelOrder(element.orderId)"
         >
           Cancel
         </button>

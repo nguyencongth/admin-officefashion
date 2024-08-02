@@ -116,6 +116,15 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
+  cancelOrder(orderId: number) {
+    if(window.confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
+      this.orderService.cancelOrder(orderId).subscribe((res) => {
+        if(res) {
+          this.getDataOrder();
+        }
+      })
+    } else return;
+  }
   getOrderStatus(status: number): string {
     switch(status) {
       case 0:

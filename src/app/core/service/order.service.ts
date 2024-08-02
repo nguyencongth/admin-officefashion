@@ -18,4 +18,8 @@ export class OrderService {
     const url = `${this.apiUrl}/updateOrderStatus?orderId=${orderId}&newOrderStatus=${status}`;
     return this.Http.patch(url, {});
   }
+  cancelOrder(orderId: number):Observable<any> {
+    const url = `${this.apiUrl}/deleteOrder?orderID=${orderId}`;
+    return this.Http.delete(url);
+  }
 }
