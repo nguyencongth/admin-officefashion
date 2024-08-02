@@ -55,8 +55,18 @@
     <div>
       <mat-form-field class="full-width">
         <mat-label> Ảnh sản phẩm </mat-label>
-        <input matInput name="image" formControlName="imageProduct">
-        <mat-error *ngIf="formProduct.controls.imageProduct.hasError('required')">Vui lòng nhập link ảnh sản phẩm</mat-error>
+        <button mat-icon-button matPrefix (click)="f_input.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+        <input type="text" readonly matInput formControlName="imageProduct" />
+        <input
+          type="file"
+          multiple
+          hidden
+          #f_input
+          (change)="handleFileInputChange(f_input.files)"
+        />
+        <mat-error *ngIf="formProduct.controls.imageProduct.hasError('required')">Vui lòng thêm ảnh sản phẩm</mat-error>
         <img *ngIf="imageUrl" class="image" [src]="imageUrl" [alt]="data.productName">
       </mat-form-field>
     </div>

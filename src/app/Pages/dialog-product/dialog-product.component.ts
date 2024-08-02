@@ -8,6 +8,10 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import {CategoryService} from "../../core/service/category.service";
 import {NgFor, NgIf} from "@angular/common";
 import {ProductService} from "../../core/service/product.service";
+import {MatIcon} from "@angular/material/icon";
+import {CloudinaryModule} from '@cloudinary/ng';
+import {HttpClient} from "@angular/common/http";
+import {map, Observable, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-dialog-product',
@@ -20,8 +24,10 @@ import {ProductService} from "../../core/service/product.service";
     MatSelect,
     MatOption,
     ReactiveFormsModule,
+    CloudinaryModule,
     NgIf,
-    NgFor
+    NgFor,
+    MatIcon
   ],
   templateUrl: './dialog-product.component.html',
   styleUrl: './dialog-product.component.css',
@@ -29,13 +35,15 @@ import {ProductService} from "../../core/service/product.service";
 export class DialogProductComponent implements OnInit {
   categories: any[] = [];
   imageUrl: string;
+  file_store: FileList;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DialogProductComponent>,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private http: HttpClient
   ) {}
   ngOnInit(): void {
     this.getCategory();
@@ -63,23 +71,84 @@ export class DialogProductComponent implements OnInit {
     })
   }
 
+  handleFileInputChange(l: FileList): void {
+    this.file_store = l;
+    if (l.length) {
+      const f = l[0];
+      const count = l.length > 1 ? `(+${l.length - 1} files)` : "";
+      this.formProduct.controls.imageProduct.patchValue(`${f.name}${count}`);
+
+      // Read the image file and generate a URL for display
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+      reader.readAsDataURL(f);
+    } else {
+      this.formProduct.controls.imageProduct.patchValue("");
+      this.imageUrl = null; // Clear the image URL if no file is selected
+    }
+  }
+
+  uploadToCloudinary(file: File): Observable<string> {
+    const url = `https://api.cloudinary.com/v1_1/di82e5pnv/image/upload`;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'ml_default');
+
+    return this.http.post<any>(url, formData).pipe(
+      map(response => response.secure_url) // Extract the URL from the response
+    );
+  }
+
   addNewProduct() {
-    const data = this.formProduct.value;
-    this.productService.addNewProduct(data).subscribe((data) => {
-      if(data) {
-        this.dialogRef.close(true);
-      }
-    })
+    if (this.file_store && this.file_store.length) {
+      const file = this.file_store[0];
+      this.uploadToCloudinary(file).pipe(
+        switchMap(imageUrl => {
+          this.formProduct.controls.imageProduct.patchValue(imageUrl);
+          const data = this.formProduct.value;
+          return this.productService.addNewProduct(data);
+        })
+      ).subscribe((data) => {
+        if (data) {
+          this.dialogRef.close(true);
+        }
+      });
+    } else {
+      const data = this.formProduct.value;
+      this.productService.addNewProduct(data).subscribe((data) => {
+        if (data) {
+          this.dialogRef.close(true);
+        }
+      });
+    }
   }
 
   updateInfoProduct() {
-    const productId = this.data.productId;
-    const data = {productId, ...this.formProduct.value};
-    this.productService.updateProduct(data).subscribe((data) => {
-      if(data) {
-        this.dialogRef.close(true);
-      }
-    })
+    if (this.file_store && this.file_store.length) {
+      const file = this.file_store[0];
+      this.uploadToCloudinary(file).pipe(
+        switchMap(imageUrl => {
+          this.formProduct.controls.imageProduct.patchValue(imageUrl);
+          const productId = this.data.productId;
+          const data = { productId, ...this.formProduct.value };
+          return this.productService.updateProduct(data);
+        })
+      ).subscribe((data) => {
+        if (data) {
+          this.dialogRef.close(true);
+        }
+      });
+    } else {
+      const productId = this.data.productId;
+      const data = { productId, ...this.formProduct.value };
+      this.productService.updateProduct(data).subscribe((data) => {
+        if (data) {
+          this.dialogRef.close(true);
+        }
+      });
+    }
   }
 
   handleClick(isAdd: boolean) {
