@@ -35,7 +35,7 @@ export class RevenueStatisticsComponent implements OnInit {
   };
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: false,
+    responsive: true,
   };
   monthYearControl = new FormControl(new Date());
 
