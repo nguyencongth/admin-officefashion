@@ -4,15 +4,15 @@ import { BaseChartDirective } from 'ng2-charts';
 import {ProductService} from "../../../core/service/product.service";
 
 @Component({
-  selector: 'app-total-selling',
+  selector: 'app-total-product-sold-month',
   standalone: true,
   imports: [
     BaseChartDirective
   ],
-  templateUrl: './total-selling.component.html',
-  styleUrl: './total-selling.component.css'
+  templateUrl: './total-product-sold-month.component.html',
+  styleUrl: './total-product-sold-month.component.css'
 })
-export class TotalSellingComponent implements OnInit {
+export class TotalProductSoldMonthComponent implements OnInit {
   totalNumberOfProductSold: any[] = [];
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
@@ -47,4 +47,5 @@ export class TotalSellingComponent implements OnInit {
       this.lineChartData.datasets[0].data = this.totalNumberOfProductSold.map((data:any) => data.totalQuantitySold);
     });
   }
+
 }

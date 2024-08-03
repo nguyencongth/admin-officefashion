@@ -78,10 +78,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /*background-color: #fff;*/
-  /*border-radius: 16px;*/
-  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-  /*margin: 16px;*/
 }
 
 .row-2 .chart, .row-2 .top-product {

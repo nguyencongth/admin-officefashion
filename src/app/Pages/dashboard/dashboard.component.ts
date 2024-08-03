@@ -11,7 +11,9 @@ import {OrderService} from "../../core/service/order.service";
 import {UserService} from "../../core/service/user.service";
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {Subscription} from "rxjs";
-import {TotalSellingComponent} from "../statistical/total-selling/total-selling.component";
+import {
+  TotalProductSoldMonthComponent
+} from "../statistical/total-product-sold-month/total-product-sold-month.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,7 @@ import {TotalSellingComponent} from "../statistical/total-selling/total-selling.
     NgStyle,
     NgClass,
     CurrencyFormatPipe,
-    TotalSellingComponent
+    TotalProductSoldMonthComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
