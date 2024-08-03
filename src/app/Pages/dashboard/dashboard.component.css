@@ -88,7 +88,7 @@
   padding: 20px;
 }
 
-.top-product, .chart {
+.top-product, .chart, .chart1 {
   margin: 16px;
   padding: 20px;
   border-radius: 16px;
@@ -96,10 +96,10 @@
   background: #fff;
 }
 .top-product {
-  width: 45%;
+  width: 55%;
 }
 .chart {
-  width: 50%;
+  width: 35%;
 }
 
 table {

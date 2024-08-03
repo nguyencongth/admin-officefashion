@@ -1,0 +1,10 @@
+<div class="chart-container">
+  <h2>Total number of products sold in each month</h2>
+  <canvas baseChart
+          [type]="'line'"
+          [datasets]="lineChartData.datasets"
+          [labels]="lineChartData.labels"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend">
+  </canvas>
+</div>

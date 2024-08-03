@@ -49,7 +49,7 @@ export class Top5ProductBestSellingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTop5ProductBestSelling();
-    this.getTotalNumberOfProductSoldInMonth();
+    // this.getTotalNumberOfProductSoldInMonth();
   }
 
   getTop5ProductBestSelling() {
@@ -63,11 +63,11 @@ export class Top5ProductBestSellingComponent implements OnInit {
       ];
     });
   }
-  getTotalNumberOfProductSoldInMonth() {
-    this.productService.totalNumberOfProductSoldInMonth().subscribe((res: any) => {
-      this.totalNumberOfProductSold = res.arraySalesData;
-      this.lineChartData.labels = this.totalNumberOfProductSold.map((data:any) => `Tháng ${data.month}`);
-      this.lineChartData.datasets[0].data = this.totalNumberOfProductSold.map((data:any) => data.totalQuantitySold);
-    });
-  }
+  // getTotalNumberOfProductSoldInMonth() {
+  //   this.productService.totalNumberOfProductSoldInMonth().subscribe((res: any) => {
+  //     this.totalNumberOfProductSold = res.arraySalesData;
+  //     this.lineChartData.labels = this.totalNumberOfProductSold.map((data:any) => `Tháng ${data.month}`);
+  //     this.lineChartData.datasets[0].data = this.totalNumberOfProductSold.map((data:any) => data.totalQuantitySold);
+  //   });
+  // }
 }

@@ -11,6 +11,7 @@ import {OrderService} from "../../core/service/order.service";
 import {UserService} from "../../core/service/user.service";
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {Subscription} from "rxjs";
+import {TotalSellingComponent} from "../statistical/total-selling/total-selling.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ import {Subscription} from "rxjs";
     MatIcon,
     NgStyle,
     NgClass,
-    CurrencyFormatPipe
+    CurrencyFormatPipe,
+    TotalSellingComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
