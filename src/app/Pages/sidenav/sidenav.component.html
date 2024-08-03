@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="example-toolbar">
   <div class="toolbar-left">
     <button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
-    <h1 class="example-app-name">Administrator</h1>
+    <h1 class="example-app-name">{{authService.getRole()}}</h1>
   </div>
   <div class="toolbar-right">
     <button mat-icon-button (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
@@ -76,7 +76,7 @@
           </div>
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubMenuAccount}" *ngIf="isShowing || isExpanded">
-          <a mat-list-item href="...">Thông tin cá nhân</a>
+          <a mat-list-item [routerLink]="['/profile']">Thông tin cá nhân</a>
           <a mat-list-item href="...">Đổi mật khẩu</a>
           <a mat-list-item href="...">Đặt lại mật khẩu</a>
         </div>

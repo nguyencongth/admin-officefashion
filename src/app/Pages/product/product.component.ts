@@ -16,6 +16,7 @@ import {CategoryService} from "../../core/service/category.service";
 import {DialogProductComponent} from "../dialog-product/dialog-product.component";
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
+import {AuthService} from "../../core/service/auth.service";
 
 @Component({
   selector: 'app-product',
@@ -48,8 +49,8 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private route: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {

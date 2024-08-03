@@ -1,0 +1,32 @@
+<div class="profile">
+  <form [formGroup]="formProfile" (ngSubmit)="updateProfile()">
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label> Full name </mat-label>
+        <input matInput name="name" formControlName="fullName">
+        <mat-error *ngIf="formProfile.controls.fullName.hasError('required')">Vui lòng nhập tên</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label> Email </mat-label>
+        <input matInput name="email" formControlName="email">
+        <mat-error *ngIf="formProfile.controls.email.hasError('required')">Vui lòng nhập email</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label> Phone number </mat-label>
+        <input matInput name="phoneNumber" formControlName="phoneNumber">
+        <mat-error *ngIf="formProfile.controls.phoneNumber.hasError('required')">Vui lòng nhập số điên thoại</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label> Role </mat-label>
+        <input matInput name="role" formControlName="roleName">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary">Update</button>
+  </form>
+</div>

@@ -12,6 +12,7 @@ import {RevenueStatisticsComponent} from "../../Pages/statistical/revenue-statis
 import {
   TotalProductSoldMonthComponent
 } from "../../Pages/statistical/total-product-sold-month/total-product-sold-month.component";
+import {ProfileComponent} from "../../Pages/account/profile/profile.component";
 
 
 export const SIDENAV_ROUTER: Routes = [
@@ -24,4 +25,5 @@ export const SIDENAV_ROUTER: Routes = [
   { path: 'top5-products-best-selling', component: Top5ProductBestSellingComponent, title: 'Top 5 products best selling' },
   { path: 'revenue-statistics', component: RevenueStatisticsComponent, title: 'Revenue statistics' },
   { path: 'total-product-sold-month', component: TotalProductSoldMonthComponent, title: 'Total product sold month' },
+  { path: 'profile', component: ProfileComponent, title: 'Profile' },
 ]
