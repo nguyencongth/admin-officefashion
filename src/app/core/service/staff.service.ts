@@ -30,6 +30,11 @@ export class StaffService {
     return this.http.patch(url, data);
   }
 
+  adminUpdateStaffInfo(data: any):Observable<any> {
+    const url = `${this.apiUrl}/adminUpdateInfoStaff`;
+    return this.http.patch(url, data);
+  }
+
   deleteStaff(id:number):Observable<any> {
     const url = `${this.apiUrl}/deleteStaff?managerId=${id}`;
     return this.http.delete(url);

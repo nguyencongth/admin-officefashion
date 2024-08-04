@@ -64,7 +64,7 @@ export class DialogStaffListComponent implements  OnInit {
   updateStaff() {
     const managerId  = this.data.managerId;
     const data = {managerId, ...this.formStaff.value};
-    this.staffService.updateStaffInfo(data).subscribe((data) => {
+    this.staffService.adminUpdateStaffInfo(data).subscribe((data) => {
       if (data) {
         this.dialogRef.close(true);
       }
