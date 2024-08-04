@@ -4,7 +4,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {NgClass, NgIf} from "@angular/common";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../core/service/auth.service";
 
 @Component({
@@ -19,7 +19,8 @@ import {AuthService} from "../../core/service/auth.service";
     NgClass,
     NgIf,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.css'

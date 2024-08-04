@@ -45,6 +45,11 @@ button {
   color: #fff;
 }
 
+.active-link {
+  background-color: #ccc;
+  color: #000;
+}
+
 .menu-item {
   display: flex;
   align-items: center;
