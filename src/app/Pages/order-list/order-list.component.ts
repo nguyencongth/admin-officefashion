@@ -19,6 +19,7 @@ import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 import {AuthService} from "../../core/service/auth.service";
 import {DialogOrderDetailComponent} from "./dialog-order-detail/dialog-order-detail.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-order-list',
@@ -55,7 +56,8 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
     private userService: UserService,
     private route: Router,
     public dialog: MatDialog,
-    protected authService: AuthService
+    protected authService: AuthService,
+    private toastr: ToastrService
   ) { }
   ngOnInit(): void {
     this.getDataOrder()
@@ -112,6 +114,7 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
   confirmOrder(orderId: number, status: number) {
     this.orderService.confirmOrder(orderId, status).subscribe((res) => {
       if(res) {
+        this.toastr.success('Xác nhận đơn hàng thành công', 'Thành công');
         this.getDataOrder();
       }
     })
@@ -120,6 +123,7 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
     if(window.confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
       this.orderService.cancelOrder(orderId).subscribe((res) => {
         if(res) {
+          this.toastr.success('Hủy đơn hàng thành công', 'Thành công');
           this.getDataOrder();
         }
       })

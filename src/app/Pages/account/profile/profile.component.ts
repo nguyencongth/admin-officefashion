@@ -8,6 +8,7 @@ import {StaffService} from "../../../core/service/staff.service";
 import {MatButton} from "@angular/material/button";
 import {RoleService} from "../../../core/service/role.service";
 import {forkJoin} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private staffService: StaffService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private toastr: ToastrService
   ) {}
 
   formProfile = this.fb.group({
@@ -61,6 +63,7 @@ export class ProfileComponent implements OnInit {
   updateProfile() {
     this.staffService.updateStaffInfo(this.formProfile.value).subscribe((res) => {
       if(res) {
+        this.toastr.success('Update profile successfully', 'Success');
         this.getProfile();
       }
     });

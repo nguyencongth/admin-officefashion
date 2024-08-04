@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import {DialogCategoryListComponent} from "./dialog-category-list/dialog-category-list.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-category-list',
@@ -34,7 +35,8 @@ export class CategoryListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     public dialog: MatDialog,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.getCategoryList();
@@ -53,6 +55,7 @@ export class CategoryListComponent implements OnInit, AfterViewInit {
     if(window.confirm('Are you sure you want to delete?')) {
       this.categoryService.deleteCategory(id).subscribe(res => {
         if(res) {
+          this.toastr.success('Category deleted successfully', 'Success');
           this.getCategoryList();
         }
       });

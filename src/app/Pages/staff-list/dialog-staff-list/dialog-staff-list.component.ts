@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {Validators, ReactiveFormsModule, FormBuilder} from '@angular/forms';
@@ -8,6 +8,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import {NgFor, NgIf} from "@angular/common";
 import {RoleService} from "../../../core/service/role.service";
 import {StaffService} from "../../../core/service/staff.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-dialog-staff-list',
@@ -24,7 +25,8 @@ import {StaffService} from "../../../core/service/staff.service";
     NgFor
   ],
   templateUrl: './dialog-staff-list.component.html',
-  styleUrl: './dialog-staff-list.component.css'
+  styleUrl: './dialog-staff-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogStaffListComponent implements  OnInit {
   arrRoles: any[] = [];
@@ -33,7 +35,8 @@ export class DialogStaffListComponent implements  OnInit {
     public dialogRef: MatDialogRef<DialogStaffListComponent>,
     private fb: FormBuilder,
     private roleService: RoleService,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -57,6 +60,7 @@ export class DialogStaffListComponent implements  OnInit {
     const data = this.formStaff.value;
     this.staffService.addStaff(data).subscribe(data => {
       if (data) {
+        this.toastr.success('Create staff successfully', "Success");
         this.dialogRef.close(true);
       }
     })
@@ -66,6 +70,7 @@ export class DialogStaffListComponent implements  OnInit {
     const data = {managerId, ...this.formStaff.value};
     this.staffService.adminUpdateStaffInfo(data).subscribe((data) => {
       if (data) {
+        this.toastr.success('Update staff successfully', "Success");
         this.dialogRef.close(true);
       }
     })

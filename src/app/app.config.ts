@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {provideHttpClient} from "@angular/common/http";
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import {provideAnimations} from "@angular/platform-browser/animations";
+import {provideToastr} from "ngx-toastr";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +14,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideAnimationsAsync(),
-    provideCharts(withDefaultRegisterables())
+    provideCharts(withDefaultRegisterables()),
+    provideAnimations(),
+    provideToastr(),
   ]
 };

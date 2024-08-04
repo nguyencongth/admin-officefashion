@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, Inject, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {Validators, ReactiveFormsModule, FormBuilder} from '@angular/forms';
@@ -12,6 +12,7 @@ import {MatIcon} from "@angular/material/icon";
 import {CloudinaryModule} from '@cloudinary/ng';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-dialog-product',
@@ -31,6 +32,7 @@ import {map, Observable, switchMap} from "rxjs";
   ],
   templateUrl: './dialog-product.component.html',
   styleUrl: './dialog-product.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogProductComponent implements OnInit {
   categories: any[] = [];
@@ -43,7 +45,8 @@ export class DialogProductComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private cdRef: ChangeDetectorRef,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.getCategory();
@@ -112,6 +115,7 @@ export class DialogProductComponent implements OnInit {
         })
       ).subscribe((data) => {
         if (data) {
+          this.toastr.success('Thêm sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
         }
       });
@@ -119,6 +123,7 @@ export class DialogProductComponent implements OnInit {
       const data = this.formProduct.value;
       this.productService.addNewProduct(data).subscribe((data) => {
         if (data) {
+          this.toastr.success('Thêm sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
         }
       });
@@ -137,6 +142,7 @@ export class DialogProductComponent implements OnInit {
         })
       ).subscribe((data) => {
         if (data) {
+          this.toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
         }
       });
@@ -145,6 +151,7 @@ export class DialogProductComponent implements OnInit {
       const data = { productId, ...this.formProduct.value };
       this.productService.updateProduct(data).subscribe((data) => {
         if (data) {
+          this.toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
         }
       });

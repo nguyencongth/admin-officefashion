@@ -17,6 +17,7 @@ import {DialogProductComponent} from "../dialog-product/dialog-product.component
 import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 import {AuthService} from "../../core/service/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-product',
@@ -51,6 +52,7 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
     private categoryService: CategoryService,
     public dialog: MatDialog,
     public authService: AuthService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -96,6 +98,7 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
     if(window.confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe(res => {
         if(res) {
+          this.toastr.success('Product has been deleted successfully!', 'Success');
           this.getData();
         }
       });

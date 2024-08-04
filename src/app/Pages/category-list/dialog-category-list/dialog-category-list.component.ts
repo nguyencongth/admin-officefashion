@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -14,6 +14,7 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {NgForOf, NgIf} from "@angular/common";
 import {CategoryService} from "../../../core/service/category.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-dialog-category-list',
@@ -35,14 +36,16 @@ import {CategoryService} from "../../../core/service/category.service";
     ReactiveFormsModule
   ],
   templateUrl: './dialog-category-list.component.html',
-  styleUrl: './dialog-category-list.component.css'
+  styleUrl: './dialog-category-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogCategoryListComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DialogCategoryListComponent>,
     private fb: FormBuilder,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private toastr: ToastrService
   ) {}
   formCategory = this.fb.group({
     categoryName: [this.data.categoryName, Validators.required],
@@ -54,6 +57,7 @@ export class DialogCategoryListComponent implements OnInit {
   addCategory() {
     this.categoryService.createCategory(this.formCategory.value).subscribe(res => {
       if(res) {
+        this.toastr.success('Create category successfully', "Success");
         this.dialogRef.close(true);
       }
     })
@@ -67,6 +71,7 @@ export class DialogCategoryListComponent implements OnInit {
     }
     this.categoryService.updateCategory(data).subscribe(res => {
       if(res) {
+        this.toastr.success('Update category successfully', "Success");
         this.dialogRef.close(true);
       }
     })
