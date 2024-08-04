@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../core/service/auth.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -27,7 +28,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -41,13 +43,13 @@ export class LoginComponent {
         this.authService.login(email, password)
           .subscribe((res) => {
             if (res) {
-              //this.toastr.success('Đăng nhập thành công!');
+              this.toastr.success('Đăng nhập thành công!');
               setTimeout(() => {
                 this.router.navigate(['/dashboard']);
               }, 1000)
             }
             else {
-              //this.toastr.error('Đăng nhập thất bại!');
+              this.toastr.error('Đăng nhập thất bại!');
               this.errorMessage = 'Tài khoản hoặc mật khẩu không chính xác.';
               this.form.controls.email.setErrors({'invalid': true});
               this.form.controls.password.setErrors({'invalid': true});
