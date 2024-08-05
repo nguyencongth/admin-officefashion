@@ -60,7 +60,7 @@
             <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuStatistical}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
           </div>
         </mat-list-item>
-        <div class="submenu" [ngClass]="{'expanded' : showSubmenuStatistical}" *ngIf="isShowing || isExpanded">
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenuStatistical}" *ngIf="showSubmenuStatistical && (isShowing || isExpanded)">
           <a mat-list-item [routerLink]="['/revenue-statistics']" routerLinkActive="active-link">Doanh thu</a>
           <a mat-list-item [routerLink]="['/top5-products-best-selling']" routerLinkActive="active-link">Top sản phẩm</a>
           <a mat-list-item [routerLink]="['/total-product-sold-month']" routerLinkActive="active-link">Tổng SP bán được</a>
@@ -75,7 +75,7 @@
             <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubMenuAccount}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
           </div>
         </mat-list-item>
-        <div class="submenu" [ngClass]="{'expanded' : showSubMenuAccount}" *ngIf="isShowing || isExpanded">
+        <div class="submenu" [ngClass]="{'expanded' : showSubMenuAccount}" *ngIf="showSubMenuAccount && (isShowing || isExpanded)">
           <a mat-list-item [routerLink]="['/profile']" routerLinkActive="active-link">Thông tin cá nhân</a>
           <a mat-list-item href="...">Đổi mật khẩu</a>
           <a mat-list-item href="...">Đặt lại mật khẩu</a>

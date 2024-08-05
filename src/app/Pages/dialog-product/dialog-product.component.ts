@@ -46,7 +46,7 @@ export class DialogProductComponent implements OnInit {
     private productService: ProductService,
     private cdRef: ChangeDetectorRef,
     private http: HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
   ngOnInit(): void {
     this.getCategory();
@@ -85,11 +85,13 @@ export class DialogProductComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         this.imageUrl = event.target.result;
+        this.cdRef.detectChanges();
       };
       reader.readAsDataURL(f);
     } else {
       this.formProduct.controls.imageProduct.patchValue("");
       this.imageUrl = null; // Clear the image URL if no file is selected
+      this.cdRef.detectChanges();
     }
   }
 

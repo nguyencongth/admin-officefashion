@@ -55,7 +55,7 @@
     <div>
       <mat-form-field class="full-width">
         <mat-label> Ảnh sản phẩm </mat-label>
-        <button mat-icon-button matPrefix (click)="f_input.click()">
+        <button type="button" mat-icon-button matPrefix (click)="f_input.click()">
           <mat-icon>attach_file</mat-icon>
         </button>
         <input type="text" readonly matInput formControlName="imageProduct" />
@@ -73,6 +73,6 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button (click)="handleClick(data.isAdd)" type="submit" mat-button>{{data.isAdd ? 'Add' : 'Save'}}</button>
+    <button (click)="handleClick(data.isAdd)" mat-button>{{data.isAdd ? 'Add' : 'Save'}}</button>
   </mat-dialog-actions>
 </form>
