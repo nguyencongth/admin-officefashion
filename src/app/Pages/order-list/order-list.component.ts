@@ -89,7 +89,7 @@ export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
           const foundUser = data.users.arrayCustomer.find((user: any) => user.customerId === order.customerId)
           return {
             ...order,
-            ...(foundUser ? foundUser : {})
+            fullName: foundUser ? foundUser.fullName : ''
           }
         })
         this.dataSource.data = [...newData];
