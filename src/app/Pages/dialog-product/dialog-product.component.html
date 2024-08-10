@@ -44,11 +44,15 @@
         <mat-error *ngIf="formProduct.controls.quantitySold.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
       </mat-form-field>
     </div>
-    <div>
-      <mat-form-field class="full-width">
+    <div class="flex">
+      <mat-form-field class="marginRight full-width">
         <mat-label> Mô tả </mat-label>
         <textarea matInput formControlName="descProduct"></textarea>
         <mat-error *ngIf="formProduct.controls.descProduct.hasError('required')">Vui lòng nhập mô tả sản phẩm</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label> Discount </mat-label>
+        <input matInput name="discount" formControlName="discountPercentage">
       </mat-form-field>
     </div>
 

@@ -66,6 +66,7 @@ export class DialogProductComponent implements OnInit {
     imageProduct: [this.data.imageProduct, Validators.required],
     descProduct: [this.data.descProduct, Validators.required],
     dateAdded: [this.data.isAdd ? "2024-07-09T07:35:26.604Z" : this.data.dateAdded, Validators.required],
+    discountPercentage: [this.data.discountPercentage],
   });
 
   getCategory() {

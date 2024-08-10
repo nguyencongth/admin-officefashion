@@ -126,6 +126,7 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
           imageProduct: null,
           descProduct: null,
           dateAdded: null,
+          discountPercentage: null,
           isAdd: true
         }
       });
