@@ -1,29 +1,29 @@
-<h2 mat-dialog-title>{{data.isAdd ? 'Thêm mới sản phẩm' : 'Chi tiết sản phẩm'}}</h2>
+<h2 mat-dialog-title>{{data.isAdd ? 'Add new product' : 'Product details'}}</h2>
 <form [formGroup]="formProduct">
   <mat-dialog-content class="mat-typography">
     <div class="flex">
       <mat-form-field class="marginRight full-width">
-        <mat-label> Tên sản phẩm </mat-label>
+        <mat-label> Product name </mat-label>
         <input matInput name="name" formControlName="productName">
-        <mat-error *ngIf="formProduct.controls.productName.hasError('required')">Vui lòng nhập tên sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.productName.hasError('required')">Product name is required</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label> Danh mục </mat-label>
+        <mat-label> Category </mat-label>
         <mat-select name="category" formControlName="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="formProduct.controls.categoryId.hasError('required')">Vui lòng chọn danh mục sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.categoryId.hasError('required')">Category is required</mat-error>
       </mat-form-field>
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
-        <mat-label> Giá nhập </mat-label>
+        <mat-label> Entry price </mat-label>
         <input matInput name="entryPrice" formControlName="entryPrice">
-        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('required')">Vui lòng nhập giá sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('required')">Entry price is required</mat-error>
         <mat-error *ngIf="formProduct.controls.entryPrice.hasError('min')">Giá nhập phải lớn hơn 0</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label> Giá bán </mat-label>
+        <mat-label> Price </mat-label>
         <input matInput name="price" formControlName="price">
         <mat-error *ngIf="formProduct.controls.price.hasError('required')">Vui lòng nhập giá sản phẩm</mat-error>
         <mat-error *ngIf="formProduct.controls.price.hasError('min')">Giá bán phải lớn hơn 0</mat-error>
@@ -32,13 +32,13 @@
 
     <div class="flex">
       <mat-form-field class="marginRight full-width">
-        <mat-label> Số lượng trong kho </mat-label>
+        <mat-label> Quantity stock </mat-label>
         <input matInput name="quantityStock" formControlName="quantityStock">
         <mat-error *ngIf="formProduct.controls.quantityStock.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
         <mat-error *ngIf="formProduct.controls.quantityStock.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label> Số lượng đã bán </mat-label>
+        <mat-label> Quantity sold </mat-label>
         <input matInput name="quantitySold" formControlName="quantitySold">
         <mat-error *ngIf="formProduct.controls.quantitySold.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
         <mat-error *ngIf="formProduct.controls.quantitySold.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
@@ -46,7 +46,7 @@
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
-        <mat-label> Mô tả </mat-label>
+        <mat-label> Description </mat-label>
         <textarea matInput formControlName="descProduct"></textarea>
         <mat-error *ngIf="formProduct.controls.descProduct.hasError('required')">Vui lòng nhập mô tả sản phẩm</mat-error>
       </mat-form-field>
@@ -58,7 +58,7 @@
 
     <div>
       <mat-form-field class="full-width">
-        <mat-label> Ảnh sản phẩm </mat-label>
+        <mat-label> Product image </mat-label>
         <button type="button" mat-icon-button matPrefix (click)="f_input.click()">
           <mat-icon>attach_file</mat-icon>
         </button>

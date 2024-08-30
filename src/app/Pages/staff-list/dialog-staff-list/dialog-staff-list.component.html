@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>{{data.isAdd ? 'Thêm nhân viên' : 'Thông tin nhân viên'}}</h2>
+<h2 mat-dialog-title>{{data.isAdd ? 'Add new staff' : 'Staff details'}}</h2>
 <form [formGroup]="formStaff">
   <mat-dialog-content class="mat-typography">
     <div>
       <mat-form-field class="full-width">
-        <mat-label> Tên nhân viên </mat-label>
+        <mat-label> Staff name </mat-label>
         <input matInput name="name" formControlName="fullName">
-        <mat-error *ngIf="formStaff.controls.fullName.hasError('required')">Vui lòng nhập tên nhân viên</mat-error>
+        <mat-error *ngIf="formStaff.controls.fullName.hasError('required')">Name is required</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Role </mat-label>
@@ -22,7 +22,7 @@
         <mat-error *ngIf="formStaff.controls.email.hasError('required')">Vui lòng nhập email</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label> Số điện thoại </mat-label>
+        <mat-label> Phone number </mat-label>
         <input matInput name="phoneNumber" formControlName="phoneNumber">
         <mat-error *ngIf="formStaff.controls.phoneNumber.hasError('required')">Vui lòng nhập số điện thoại</mat-error>
       </mat-form-field>
@@ -30,7 +30,7 @@
 
     <div *ngIf="data.isAdd">
       <mat-form-field class="full-width">
-        <mat-label> Mật khẩu </mat-label>
+        <mat-label> Password </mat-label>
         <input matInput name="password" formControlName="password">
         <mat-error *ngIf="formStaff.controls.password.hasError('required')">Vui lòng nhập mật khẩu</mat-error>
         <mat-error *ngIf="formStaff.controls.password.hasError('min')">Mật khẩu phải ít nhất 6 ký tự</mat-error>

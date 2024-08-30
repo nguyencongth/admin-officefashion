@@ -1,11 +1,11 @@
 export const environment = {
   api: {
-    urlLogin: 'https://localhost:7249/api/Managers/Login',
-    urlCategory: 'https://localhost:7249/api/ProductType',
-    urlProduct: 'https://localhost:7249/api/Product',
-    urlOrder: 'https://localhost:7249/api/Orders',
-    urlUser: 'https://localhost:7249/api/Customers',
-    urlManager: 'https://localhost:7249/api/Managers',
-    urlRole: 'https://localhost:7249/api/Roles'
+    urlLogin: 'https://thanhncofficefashion.somee.com/api/Managers/Login',
+    urlCategory: 'https://thanhncofficefashion.somee.com/api/ProductType',
+    urlProduct: 'https://thanhncofficefashion.somee.com/api/Product',
+    urlOrder: 'https://thanhncofficefashion.somee.com/api/Orders',
+    urlUser: 'https://thanhncofficefashion.somee.com/api/Customers',
+    urlManager: 'https://thanhncofficefashion.somee.com/api/Managers',
+    urlRole: 'https://thanhncofficefashion.somee.com/api/Roles'
   }
 }

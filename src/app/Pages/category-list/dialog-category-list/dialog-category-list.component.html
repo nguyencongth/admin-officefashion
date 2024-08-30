@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>{{data.isAdd ? 'Thêm danh mục' : 'Thông tin danh mục'}}</h2>
+<h2 mat-dialog-title>{{data.isAdd ? 'Add new category' : 'Category details'}}</h2>
 <form [formGroup]="formCategory">
   <mat-dialog-content class="mat-typography">
     <div>
       <mat-form-field class="full-width">
-        <mat-label> Tên danh mục </mat-label>
+        <mat-label> Category name </mat-label>
         <input matInput name="name" formControlName="categoryName">
-        <mat-error *ngIf="formCategory.controls.categoryName.hasError('required')">Vui lòng nhập tên danh mục</mat-error>
+        <mat-error *ngIf="formCategory.controls.categoryName.hasError('required')">Category name is required</mat-error>
       </mat-form-field>
     </div>
   </mat-dialog-content>
