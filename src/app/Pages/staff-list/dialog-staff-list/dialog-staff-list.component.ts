@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {Validators, ReactiveFormsModule, FormBuilder} from '@angular/forms';
@@ -28,8 +28,10 @@ import {ToastrService} from "ngx-toastr";
   styleUrl: './dialog-staff-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogStaffListComponent implements  OnInit {
+export class DialogStaffListComponent implements OnInit {
   arrRoles: any[] = [];
+  @Output() unsavedChangesEvent = new EventEmitter<boolean>();
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DialogStaffListComponent>,
@@ -37,15 +39,35 @@ export class DialogStaffListComponent implements  OnInit {
     private roleService: RoleService,
     private staffService: StaffService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.formStaff.valueChanges.subscribe(() => {
+      this.unsavedChangesEvent.emit(true);
+    });
+  }
 
   ngOnInit() {
     this.getRoles();
+    this.dialogRef.backdropClick().subscribe(() => {
+      if (this.formStaff.dirty) {
+        const confirm = window.confirm('You have unsaved changes. Are you sure you want to discard them?');
+        if (!confirm) {
+          this.dialogRef.disableClose = true;
+          setTimeout(() => {
+            this.dialogRef.disableClose = false;
+          });
+        } else {
+          this.unsavedChangesEvent.emit(false);
+          this.dialogRef.close();
+        }
+      } else {
+        this.dialogRef.close();
+      }
+    });
   }
   formStaff = this.fb.group({
     fullName: [this.data.fullName, Validators.required],
     email: [this.data.email, [Validators.required, Validators.email]],
-    phoneNumber: [this.data.phoneNumber, [Validators.required]],
+    phoneNumber: [this.data.phoneNumber, [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
     password: [this.data.password, [Validators.required, Validators.min(6)]],
     roleId: [this.data.roleId, Validators.required],
   });
@@ -58,12 +80,15 @@ export class DialogStaffListComponent implements  OnInit {
 
   addStaff() {
     const data = this.formStaff.value;
-    this.staffService.addStaff(data).subscribe(data => {
-      if (data) {
-        this.toastr.success('Create staff successfully', "Success");
-        this.dialogRef.close(true);
-      }
-    })
+    if(this.formStaff.valid) {
+      this.staffService.addStaff(data).subscribe(data => {
+        if (data) {
+          this.toastr.success('Create staff successfully', "Success");
+          this.dialogRef.close(true);
+        }
+      })
+      this.unsavedChangesEvent.emit(false);
+    }
   }
   updateStaff() {
     const managerId  = this.data.managerId;
@@ -82,4 +107,17 @@ export class DialogStaffListComponent implements  OnInit {
       this.updateStaff();
     }
   }
+
+  onCancel(): void {
+    if (this.formStaff.dirty) {
+      const confirm = window.confirm('You have unsaved changes. Are you sure you want to cancel?');
+      if (confirm) {
+        this.unsavedChangesEvent.emit(false);
+        this.dialogRef.close();
+      }
+    } else {
+      this.dialogRef.close();
+    }
+  }
+
 }

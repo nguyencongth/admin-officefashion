@@ -11,8 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import {StaffService} from "../../core/service/staff.service";
 import {DialogStaffListComponent} from "./dialog-staff-list/dialog-staff-list.component";
-import {forkJoin, Subject, takeUntil} from "rxjs";
+import {forkJoin, Observable, Subject, takeUntil} from "rxjs";
 import {RoleService} from "../../core/service/role.service";
+import {CanComponentDeactivate} from "../../core/guards/auth.guard";
+import {CanDeactivateFn} from "@angular/router";
 
 @Component({
   selector: 'app-staff-list',
@@ -37,12 +39,13 @@ export class StaffListComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource(this.data);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private unsubscribe$ = new Subject<void>();
+  unsavedChanges: boolean = false;
 
   constructor(
     public dialog: MatDialog,
     private staffService: StaffService,
     private roleService: RoleService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getStaffList()
   }
@@ -97,6 +100,7 @@ export class StaffListComponent implements OnInit, AfterViewInit, OnDestroy {
     if (selectedItem) {
       dialogRef = this.dialog.open(DialogStaffListComponent, {
         data: {...selectedItem, isAdd: false},
+        disableClose: true
       });
     } else {
       dialogRef = this.dialog.open(DialogStaffListComponent, {
@@ -112,13 +116,29 @@ export class StaffListComponent implements OnInit, AfterViewInit, OnDestroy {
           descProduct: null,
           dateAdded: null,
           isAdd: true
-        }
+        },
+        disableClose: true
       });
     }
+    const dialogInstance = dialogRef.componentInstance;
+    dialogInstance.unsavedChangesEvent.subscribe((hasUnsavedChanges: boolean) => {
+      this.unsavedChanges = hasUnsavedChanges;
+    });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getStaffList();
+        this.unsavedChanges = false;
       }
     });
   }
 }
+
+export const canDeactivateStaffList: CanDeactivateFn<StaffListComponent> = (
+  component: StaffListComponent
+) => {
+  if (component.unsavedChanges) {
+    return confirm('You have unsaved changes. Are you sure you want to leave?');
+  }
+  return true;
+};

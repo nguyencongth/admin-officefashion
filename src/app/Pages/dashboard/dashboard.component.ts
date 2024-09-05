@@ -32,7 +32,7 @@ import {
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  columns: string[] = ['id', 'name', 'Popularity', 'Sales'];
+  columns: string[] = ['no', 'id', 'name', 'Popularity', 'Sales'];
   data: any[] = [];
   dataSource = new MatTableDataSource(this.data);
   private unsubscribe$ = new Subscription();
@@ -64,7 +64,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
           let percentage = (price - enterPrice) / enterPrice * 100;
           product.profitPercentage = Math.round(percentage)
           return product;
-        })
+        }).sort((a: any, b: any) => b.profitPercentage - a.profitPercentage);
+
+        this.dataSource.data.forEach((product: any, index: number) => {
+          product.no = index + 1;
+        });
       })
     )
   }

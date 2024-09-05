@@ -39,4 +39,14 @@ export class StaffService {
     const url = `${this.apiUrl}/deleteStaff?managerId=${id}`;
     return this.http.delete(url);
   }
+
+  changePassword(managerId: number, currentPassword: any, newPassword: any, confirmNewPassword: any) {
+    const url = `${this.apiUrl}/changePassword?managerId=${managerId}&currentPassword=${currentPassword}&newPassword=${newPassword}&confirmNewPassword=${confirmNewPassword}`;
+    return this.http.patch(url, {});
+  }
+
+  resetPassword(managerId: number) {
+    const url = `${this.apiUrl}/resetPassword?managerId=${managerId}`;
+    return this.http.patch(url, {});
+  }
 }

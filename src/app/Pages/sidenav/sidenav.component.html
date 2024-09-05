@@ -77,8 +77,8 @@
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubMenuAccount}" *ngIf="showSubMenuAccount && (isShowing || isExpanded)">
           <a mat-list-item [routerLink]="['/profile']" routerLinkActive="active-link">Profile</a>
-          <a mat-list-item href="...">Change password</a>
-          <a mat-list-item href="...">Reset password</a>
+          <a mat-list-item [routerLink]="['/changePassword']" routerLinkActive="active-link">Change password</a>
+          <a mat-list-item (click)="resetPassword()">Reset password</a>
         </div>
       </mat-nav-list>
 

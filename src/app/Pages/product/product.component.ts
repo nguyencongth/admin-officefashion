@@ -1,6 +1,6 @@
 import { Subject, forkJoin, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, OnDestroy, Input} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import {ProductService} from "../../core/service/product.service";
 import {CategoryService} from "../../core/service/category.service";
@@ -18,12 +17,22 @@ import {CurrencyFormatPipe} from "../../core/pipes/currency-format.pipe";
 import {DatetimeFormatPipe} from "../../core/pipes/datetime-format.pipe";
 import {AuthService} from "../../core/service/auth.service";
 import {ToastrService} from "ngx-toastr";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'app-product',
   styleUrl: 'product.component.css',
   templateUrl: 'product.component.html',
   standalone: true,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
   imports: [
     CommonModule,
     MatTableModule,
@@ -35,11 +44,17 @@ import {ToastrService} from "ngx-toastr";
     MatIconModule,
     MatDividerModule,
     CurrencyFormatPipe,
-    DatetimeFormatPipe
+    DatetimeFormatPipe,
+    MatProgressSpinnerModule
   ],
 })
 export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
   selected = '';
+  isLoading: boolean = true;
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50;
+  customDiameter = 50;
   displayedColumns: string[] = ['id', 'category', 'name', 'entryPrice', 'price', 'quantityStock', 'quantitySold', 'dateAdded', 'actions'];
   data: any[] = [];
   dataSource = new MatTableDataSource(this.data);
@@ -91,6 +106,7 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         })
         this.dataSource.data = [...newData];
+        this.isLoading = false;
       });
   }
 
@@ -136,5 +152,16 @@ export class ProductComponent implements OnInit, AfterViewInit, OnDestroy {
         this.getData();
       }
     });
+  }
+
+  applyNameFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      return data.productName.toLowerCase().includes(filter);
+    };
+    this.dataSource.filter = filterValue;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

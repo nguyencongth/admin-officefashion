@@ -49,8 +49,12 @@
   <div class="top-product">
     <h2>Top products</h2>
     <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="no">
+        <th mat-header-cell cdkDrag *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.no}} </td>
+      </ng-container>
       <ng-container matColumnDef="id">
-        <th mat-header-cell cdkDrag *matHeaderCellDef> # </th>
+        <th mat-header-cell cdkDrag *matHeaderCellDef> Id </th>
         <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
       </ng-container>
 

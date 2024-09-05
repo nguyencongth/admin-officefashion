@@ -1,4 +1,10 @@
-import {Component, Inject, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {Validators, ReactiveFormsModule, FormBuilder} from '@angular/forms';
@@ -13,10 +19,20 @@ import {CloudinaryModule} from '@cloudinary/ng';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, switchMap} from "rxjs";
 import {ToastrService} from "ngx-toastr";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'app-dialog-product',
   standalone: true,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
   imports: [
     MatButtonModule,
     MatDialogModule,
@@ -26,6 +42,7 @@ import {ToastrService} from "ngx-toastr";
     MatOption,
     ReactiveFormsModule,
     CloudinaryModule,
+    MatProgressSpinnerModule,
     NgIf,
     NgFor,
     MatIcon
@@ -38,6 +55,11 @@ export class DialogProductComponent implements OnInit {
   categories: any[] = [];
   imageUrl: string;
   file_store: FileList;
+  isLoading = false;
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50;
+  customDiameter = 50;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DialogProductComponent>,
@@ -108,6 +130,7 @@ export class DialogProductComponent implements OnInit {
   }
 
   addNewProduct() {
+    this.isLoading = true;
     if (this.file_store && this.file_store.length) {
       const file = this.file_store[0];
       this.uploadToCloudinary(file).pipe(
@@ -120,6 +143,7 @@ export class DialogProductComponent implements OnInit {
         if (data) {
           this.toastr.success('Thêm sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
+          this.isLoading = false;
         }
       });
     } else {
@@ -134,6 +158,7 @@ export class DialogProductComponent implements OnInit {
   }
 
   updateInfoProduct() {
+    this.isLoading = true;
     if (this.file_store && this.file_store.length) {
       const file = this.file_store[0];
       this.uploadToCloudinary(file).pipe(
@@ -147,6 +172,7 @@ export class DialogProductComponent implements OnInit {
         if (data) {
           this.toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
           this.dialogRef.close(true);
+          this.isLoading = false;
         }
       });
     } else {

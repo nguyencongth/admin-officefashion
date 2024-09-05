@@ -20,11 +20,13 @@
         <mat-label> Email </mat-label>
         <input matInput name="email" formControlName="email">
         <mat-error *ngIf="formStaff.controls.email.hasError('required')">Vui lòng nhập email</mat-error>
+        <mat-error *ngIf="formStaff.controls.email.hasError('email')">Email không hợp lệ</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Phone number </mat-label>
         <input matInput name="phoneNumber" formControlName="phoneNumber">
         <mat-error *ngIf="formStaff.controls.phoneNumber.hasError('required')">Vui lòng nhập số điện thoại</mat-error>
+        <mat-error *ngIf="formStaff.controls.phoneNumber.hasError('pattern')">Invalid phone number format</mat-error>
       </mat-form-field>
     </div>
 
@@ -38,7 +40,7 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="onCancel()">Cancel</button>
     <button (click)="handleClick(data.isAdd)" type="submit" mat-button>{{data.isAdd ? 'Add' : 'Save'}}</button>
   </mat-dialog-actions>
 </form>

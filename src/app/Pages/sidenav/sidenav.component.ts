@@ -6,6 +6,8 @@ import {MatIcon} from "@angular/material/icon";
 import {NgClass, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../core/service/auth.service";
+import {StaffService} from "../../core/service/staff.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-sidenav',
@@ -32,7 +34,11 @@ export class SidenavComponent {
   isShowing = false;
   showSubMenuAccount: boolean = false;
 
-  constructor(protected authService: AuthService) {}
+  constructor(
+    protected authService: AuthService,
+    private staffService: StaffService,
+    private toastr: ToastrService
+  ) {}
 
   mouseenter() {
     if (!this.isExpanded) {
@@ -48,5 +54,16 @@ export class SidenavComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  resetPassword() {
+    const id = Number(localStorage.getItem('managerId'));
+    if(window.confirm('Are you sure you want to reset password?')) {
+      this.staffService.resetPassword(id).subscribe(res => {
+        if(res) {
+          this.toastr.success('Reset password successfully', 'Success');
+        }
+      });
+    } else return;
   }
 }
