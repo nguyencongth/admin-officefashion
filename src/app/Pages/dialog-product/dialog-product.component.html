@@ -17,28 +17,28 @@
       <mat-form-field class="marginRight full-width">
         <mat-label> Product name </mat-label>
         <input matInput name="name" formControlName="productName">
-        <mat-error *ngIf="formProduct.controls.productName.hasError('required')">Product name is required</mat-error>
+        <mat-error *ngIf="formProduct.controls.productName.hasError('required')">Product name is required.</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Category </mat-label>
         <mat-select name="category" formControlName="categoryId">
           <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="formProduct.controls.categoryId.hasError('required')">Category is required</mat-error>
+        <mat-error *ngIf="formProduct.controls.categoryId.hasError('required')">Category is required.</mat-error>
       </mat-form-field>
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Entry price </mat-label>
         <input matInput name="entryPrice" formControlName="entryPrice">
-        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('required')">Entry price is required</mat-error>
-        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('min')">Giá nhập phải lớn hơn 0</mat-error>
+        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('required')">Entry price is required.</mat-error>
+        <mat-error *ngIf="formProduct.controls.entryPrice.hasError('min')">The entry price must be greater than 0.</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Price </mat-label>
         <input matInput name="price" formControlName="price">
-        <mat-error *ngIf="formProduct.controls.price.hasError('required')">Vui lòng nhập giá sản phẩm</mat-error>
-        <mat-error *ngIf="formProduct.controls.price.hasError('min')">Giá bán phải lớn hơn 0</mat-error>
+        <mat-error *ngIf="formProduct.controls.price.hasError('required')">Price is required.</mat-error>
+        <mat-error *ngIf="formProduct.controls.price.hasError('min')">The selling price must be greater than 0.</mat-error>
       </mat-form-field>
     </div>
 
@@ -46,21 +46,21 @@
       <mat-form-field class="marginRight full-width">
         <mat-label> Quantity stock </mat-label>
         <input matInput name="quantityStock" formControlName="quantityStock">
-        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
-        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('required')">Quantity  is required.</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantityStock.hasError('min')">Invalid quantity.</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Quantity sold </mat-label>
         <input matInput name="quantitySold" formControlName="quantitySold">
-        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('required')">Vui lòng nhập số lượng sản phẩm</mat-error>
-        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('min')">Số lượng phải lớn hơn 0</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('required')">Quantity  is required.</mat-error>
+        <mat-error *ngIf="formProduct.controls.quantitySold.hasError('min')">Invalid quantity.</mat-error>
       </mat-form-field>
     </div>
     <div class="flex">
       <mat-form-field class="marginRight full-width">
         <mat-label> Description </mat-label>
         <textarea matInput formControlName="descProduct"></textarea>
-        <mat-error *ngIf="formProduct.controls.descProduct.hasError('required')">Vui lòng nhập mô tả sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.descProduct.hasError('required')">Description is required.</mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label> Discount </mat-label>
@@ -82,7 +82,7 @@
           #f_input
           (change)="handleFileInputChange(f_input.files)"
         />
-        <mat-error *ngIf="formProduct.controls.imageProduct.hasError('required')">Vui lòng thêm ảnh sản phẩm</mat-error>
+        <mat-error *ngIf="formProduct.controls.imageProduct.hasError('required')">Image is required.</mat-error>
         <img *ngIf="imageUrl" class="image" [src]="imageUrl" [alt]="data.productName">
       </mat-form-field>
     </div>

@@ -43,14 +43,14 @@ export class LoginComponent {
         this.authService.login(email, password)
           .subscribe((res) => {
             if (res) {
-              this.toastr.success('Đăng nhập thành công!');
+              this.toastr.success('Login successful!');
               setTimeout(() => {
                 this.router.navigate(['/dashboard']);
               }, 1000)
             }
             else {
-              this.toastr.error('Đăng nhập thất bại!');
-              this.errorMessage = 'Tài khoản hoặc mật khẩu không chính xác.';
+              this.toastr.error('Login failed!');
+              this.errorMessage = 'Account or password is incorrect.';
               this.form.controls.email.setErrors({'invalid': true});
               this.form.controls.password.setErrors({'invalid': true});
             }

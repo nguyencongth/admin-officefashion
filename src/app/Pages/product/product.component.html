@@ -73,7 +73,7 @@
       <td mat-cell *matCellDef="let element">
         <button style="margin-right: 4px;" mat-raised-button color="primary" (click)="openDialogProduct(element.productId)">Detail</button>
         <button
-          *ngIf="authService.getRole() === 'Administrator' || authService.getRole() === 'Accountant'"
+          *ngIf="authService.getRole() === 'Administrator'"
           style="margin-right: 4px;"
           mat-raised-button
           color="warn"

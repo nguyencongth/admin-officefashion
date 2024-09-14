@@ -141,7 +141,7 @@ export class DialogProductComponent implements OnInit {
         })
       ).subscribe((data) => {
         if (data) {
-          this.toastr.success('Thêm sản phẩm thành công', 'Thành công');
+          this.toastr.success('New product added successfully.', 'Success');
           this.dialogRef.close(true);
           this.isLoading = false;
         }
@@ -150,7 +150,7 @@ export class DialogProductComponent implements OnInit {
       const data = this.formProduct.value;
       this.productService.addNewProduct(data).subscribe((data) => {
         if (data) {
-          this.toastr.success('Thêm sản phẩm thành công', 'Thành công');
+          this.toastr.success('New product added successfully.', 'Success');
           this.dialogRef.close(true);
         }
       });
@@ -170,7 +170,7 @@ export class DialogProductComponent implements OnInit {
         })
       ).subscribe((data) => {
         if (data) {
-          this.toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
+          this.toastr.success('Product updated successfully.', 'Success');
           this.dialogRef.close(true);
           this.isLoading = false;
         }
@@ -180,7 +180,7 @@ export class DialogProductComponent implements OnInit {
       const data = { productId, ...this.formProduct.value };
       this.productService.updateProduct(data).subscribe((data) => {
         if (data) {
-          this.toastr.success('Cập nhật sản phẩm thành công', 'Thành công');
+          this.toastr.success('Product updated successfully.', 'Success');
           this.dialogRef.close(true);
         }
       });

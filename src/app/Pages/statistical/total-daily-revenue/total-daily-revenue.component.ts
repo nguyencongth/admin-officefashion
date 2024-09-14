@@ -29,7 +29,6 @@ import {NgForOf, NgIf} from "@angular/common";
   styleUrl: './total-daily-revenue.component.css'
 })
 export class TotalDailyRevenueComponent implements OnInit {
-  //selectedWeek: number = 1;
   public barChartLegend = true;
   public barChartPlugins: any[] = [];
 
@@ -43,8 +42,15 @@ export class TotalDailyRevenueComponent implements OnInit {
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
   };
+
+  getCurrentWeek() {
+    const currentDay = new Date().getDate();
+    console.log(currentDay)
+    return Math.ceil(currentDay / 7);
+  }
+
   monthYearControl = new FormControl(new Date());
-  weekControl = new FormControl(1);
+  weekControl = new FormControl(this.getCurrentWeek());
 
   constructor(
     private productService: ProductService
@@ -84,7 +90,7 @@ export class TotalDailyRevenueComponent implements OnInit {
   getTotalDailyRevenue(year: number, month: number, week: number) {
     this.productService.totalDailyRevenue(year, month, week).subscribe((res: any) => {
       const currentYearData = res.arrayRevenue.map((data: any) => data.totalRevenue);
-      const labels = res.arrayRevenue.map((data: any) => `${new Date(data.date).toDateString()}`);
+      const labels = res.arrayRevenue.map((data: any) => `${new Date(data.date).toLocaleDateString()}`);
 
       this.barChartData = {
         labels: labels,

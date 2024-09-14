@@ -83,7 +83,7 @@ export class DialogStaffListComponent implements OnInit {
     if(this.formStaff.valid) {
       this.staffService.addStaff(data).subscribe(data => {
         if (data) {
-          this.toastr.success('Create staff successfully', "Success");
+          this.toastr.success('New staff added successfully.', "Success");
           this.dialogRef.close(true);
         }
       })
@@ -95,7 +95,7 @@ export class DialogStaffListComponent implements OnInit {
     const data = {managerId, ...this.formStaff.value};
     this.staffService.adminUpdateStaffInfo(data).subscribe((data) => {
       if (data) {
-        this.toastr.success('Update staff successfully', "Success");
+        this.toastr.success('Staff information updated successfully', "Success");
         this.dialogRef.close(true);
       }
     })
