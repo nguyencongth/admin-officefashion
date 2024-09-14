@@ -1,0 +1,32 @@
+<div class="form-field">
+  <mat-form-field class="custom-date-picker">
+    <mat-label>Choose a month and year</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="monthYearControl">
+    <mat-hint>MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker startView="multi-year"
+      (monthSelected)="chosenMonthHandler($event, picker)"
+      (yearSelected)="chosenYearHandler($event)"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label> Week </mat-label>
+    <mat-select name="week" [formControl]="weekControl" (selectionChange)="onWeekChange($event)">
+      <mat-option [value]="1">Week 1</mat-option>
+      <mat-option [value]="2">Week 2</mat-option>
+      <mat-option [value]="3">Week 3</mat-option>
+      <mat-option [value]="4">Week 4</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="chart-container">
+  <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [type]="'bar'">
+  </canvas>
+</div>

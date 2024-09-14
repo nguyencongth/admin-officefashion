@@ -42,4 +42,8 @@ export class ProductService {
     const url = `${environment.api.urlProduct}/totalRevenueInMonth?year=${year}`;
     return this.http.get(url);
   }
+  totalDailyRevenue(year: number, month: number, week: number):Observable<any> {
+    const url = `${environment.api.urlProduct}/totalDailyRevenue?year=${year}&month=${month}&week=${week}`;
+    return this.http.get(url);
+  }
 }

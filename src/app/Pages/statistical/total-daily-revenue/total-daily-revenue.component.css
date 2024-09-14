@@ -1,0 +1,52 @@
+.custom-date-picker {
+  width: 100%;
+  max-width: 400px;
+  /*margin: 20px auto;*/
+  /*display: block;*/
+}
+
+.custom-date-picker .mat-form-field-wrapper {
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-date-picker .mat-form-field-label {
+  color: #555;
+  font-weight: bold;
+}
+
+.custom-date-picker .mat-input-element {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.custom-date-picker .mat-datepicker-toggle-default-icon {
+  color: #555;
+}
+
+/* Custom styles for the chart container */
+.chart-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.chart-container canvas {
+  height: 400px !important;
+  width: 800px !important;
+}
+.full-width {
+  width: 100%;
+  max-width: 400px;
+}
+.form-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -62,6 +62,7 @@
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubmenuStatistical}" *ngIf="showSubmenuStatistical && (isShowing || isExpanded)">
           <a mat-list-item [routerLink]="['/revenue-statistics']" routerLinkActive="active-link">Revenue</a>
+          <a mat-list-item [routerLink]="['/daily-revenue']" routerLinkActive="active-link">Daily revenue</a>
           <a mat-list-item [routerLink]="['/top5-products-best-selling']" routerLinkActive="active-link">Top product</a>
           <a mat-list-item [routerLink]="['/total-product-sold-month']" routerLinkActive="active-link">Total products sold</a>
         </div>
